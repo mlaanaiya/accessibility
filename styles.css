@@ -485,6 +485,30 @@ code {
   font-size: 0.92rem;
 }
 
+.exercise-steps {
+  margin: 1.5rem 0;
+  padding-left: 1.6rem;
+  color: #f1f5f9;
+  counter-reset: steps;
+}
+
+.exercise-steps li {
+  margin-bottom: 1rem;
+}
+
+.exercise-steps li strong {
+  display: block;
+  font-family: var(--font-heading);
+  color: #bae6fd;
+  margin-bottom: 0.3rem;
+}
+
+.exercise-steps li p {
+  margin: 0;
+  color: rgba(226, 232, 240, 0.85);
+  font-size: 0.95rem;
+}
+
 .exercise-card textarea:focus-visible {
   outline: 3px solid rgba(96, 165, 250, 0.55);
   outline-offset: 2px;

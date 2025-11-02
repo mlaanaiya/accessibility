@@ -26,12 +26,14 @@
           <ul class="hero__nav-list">
             <li><a href="#curriculum">Cours complet</a></li>
             <li><a href="#semantique">S&eacute;mantique &amp; ARIA</a></li>
+            <li><a href="#aria-pro">Cours ARIA avanc&eacute;</a></li>
             <li><a href="#themes">R&eacute;f&eacute;rentiel RGAA</a></li>
             <li><a href="#patterns">Pratiques pro</a></li>
             <li><a href="#atelier">Atelier d&rsquo;audit</a></li>
             <li><a href="#laboratoire">Laboratoire code</a></li>
             <li><a href="#quiz">Quiz &amp; validation</a></li>
             <li><a href="#entretien">Entretien technique</a></li>
+            <li><a href="#angular">Angular &amp; accessibilit&eacute;</a></li>
             <li><a href="#ressources">Ressources</a></li>
           </ul>
         </nav>
@@ -145,6 +147,63 @@
               <ul>
                 <li>Limiter ARIA aux cas n&eacute;cessaires, d&eacute;tecter les conflits s&eacute;mantiques.</li>
                 <li>Strat&eacute;gies d&rsquo;annonce pour composants asynchrones.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="aria-pro" class="section">
+        <div class="container">
+          <header class="section__header">
+            <h2>ARIA avanc&eacute; &mdash; R&ocirc;les, &eacute;tats et patterns critiques</h2>
+            <p>
+              Ma&icirc;trisez les attributs ARIA en comprenant quand les appliquer, comment les combiner et quelles sont les limites pour ne pas d&eacute;grader l&rsquo;exp&eacute;rience utilisateur.
+            </p>
+          </header>
+          <div class="module-grid">
+            <article class="module-card">
+              <h3>R&ocirc;les de structure et de navigation</h3>
+              <p>
+                Diff&eacute;renciez les landmarks (<code>banner</code>, <code>navigation</code>, <code>main</code>, <code>complementary</code>, <code>contentinfo</code>), utilisez <code>role</code> uniquement lorsqu&rsquo;aucune balise s&eacute;mantique n&rsquo;existe.
+              </p>
+              <ul>
+                <li>Cr?er des raccourcis clavier pour les aides techniques via landmarks.</li>
+                <li>Nommer les zones avec <code>aria-label</code> ou <code>aria-labelledby</code>.</li>
+                <li>Cas particuliers : SPA, pages modales, composants embarqu&eacute;s.</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>R&ocirc;les widgets &amp; gestion des &eacute;tats</h3>
+              <p>
+                Comprenez <code>aria-expanded</code>, <code>aria-pressed</code>, <code>aria-selected</code> et <code>aria-current</code> pour synchroniser l&rsquo;interface visuelle et l&rsquo;API accessibilit&eacute;.
+              </p>
+              <ul>
+                <li>Accord&eacute;ons, menus, onglets : mod&egrave;les WAI-ARIA &agrave; respecter.</li>
+                <li>Patrons de focus et gestion des fl&egrave;ches directionnelles.</li>
+                <li>Bonne pratique : r&eacute;initialiser les attributs lors des changements d&rsquo;&eacute;tat.</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>Gestion des annonces et des live regions</h3>
+              <p>
+                Choisissez <code>aria-live</code> <em>polite</em> ou <em>assertive</em> selon la priorisation des messages et limitez la taille des r&eacute;gions.
+              </p>
+              <ul>
+                <li><code>role="status"</code>, <code>role="alert"</code>, <code>aria-atomic</code>, <code>aria-relevant</code>.</li>
+                <li>Sc&eacute;narios pratiques : autocompl&eacute;tion, feedback formulaire, progression.</li>
+                <li>M&eacute;thodes de test : NVDA Speech Viewer, VoiceOver rotor.</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>Diagnostics et anti-patterns</h3>
+              <p>
+                Identifier les mauvaises utilisations d&rsquo;ARIA, &eacute;viter le <em>role poisoning</em> et garder une logique s&eacute;mantique native.
+              </p>
+              <ul>
+                <li>Checklists de revue de code ARIA.</li>
+                <li>Int&eacute;gration avec Axe, Lighthouse, Storybook a11y.</li>
+                <li>Strat&eacute;gie de fallback pour navigateurs partiellement compatibles.</li>
               </ul>
             </article>
           </div>
@@ -301,6 +360,53 @@
                 <dt>Bonnes pratiques</dt>
                 <dd>Limiter la zone d&rsquo;annonce, fournir un historique accessible.</dd>
               </dl>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="angular" class="section">
+        <div class="container">
+          <header class="section__header">
+            <h2>Angular &mdash; architecture et accessibilit&eacute; by design</h2>
+            <p>
+              D&eacute;ployez des applications Angular accessibles en combinant bonnes pratiques front, tooling CLI et strat&eacute;gies de test.
+            </p>
+          </header>
+          <div class="module-grid">
+            <article class="module-card">
+              <h3>Parcours Angular moderne</h3>
+              <ul>
+                <li>Structure des applications (standalone components, routing, lazy loading).</li>
+                <li>Gestion de l&rsquo;&eacute;tat (RxJS, signals), architecture scalable, performance.</li>
+                <li>Formulaires (template-driven vs reactive), validation custom et internationalisation.</li>
+                <li>Tests unitaires, end-to-end (Jasmine/Karma, Cypress) et automatisation CI.</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>Accessibilit&eacute; avec Angular</h3>
+              <ul>
+                <li>Utilisation de directives pour g&eacute;rer le focus (<code>cdkFocusInitial</code>, <code>cdkTrapFocus</code>).</li>
+                <li>Accessible Material : personnaliser Angular Material pour respecter contrastes et navigation clavier.</li>
+                <li>Gestion des annonces dynamiques avec <code>LiveAnnouncer</code> et <code>FocusMonitor</code>.</li>
+                <li>Linting a11y (<code>@angular-eslint</code>, <code>eslint-plugin-jsx-a11y</code>) et tests assistifs (Storybook a11y, axe-core).</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>Guide de migration &amp; audit Angular</h3>
+              <ul>
+                <li>Checklist de revue de composants (input/output, content projection et ARIA implicite).</li>
+                <li>Audit de routes et modales : focus management, skip links, gestion des titres.</li>
+                <li>Int&eacute;grer l&rsquo;accessibilit&eacute; dans le pipeline CI/CD (tests Lighthouse, axe, cypress-axe).</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>Cas pratiques</h3>
+              <ul>
+                <li>Construire un design system accessible avec <code>CDK</code> et theming tokens.</li>
+                <li>Internationalisation (i18n) et accessibilit&eacute; : pluriels, genres, direction LTR/RTL.</li>
+                <li>Inclusivit&eacute; dans les formulaires Angular (messages d&rsquo;erreurs, validation &agrave; la vol&eacute;e, hints).</li>
+              </ul>
             </article>
           </div>
         </div>

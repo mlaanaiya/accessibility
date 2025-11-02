@@ -1,5 +1,89 @@
 const exercises = [
   {
+    id: "exercice-semantique",
+    title: "S&eacute;mantique HTML &mdash; mise en page pas &agrave; pas",
+    level: "Fondamentaux",
+    focus: "Structure s&eacute;mantique ? landmarks RGAA",
+    context:
+      "Une page de destination est compos&eacute;e uniquement de <div> sans rep&egrave;res s&eacute;mantiques ni navigation clavier structur&eacute;e.",
+    goal:
+      "Ajouter progressivement une structure s&eacute;mantique compl&egrave;te (landmarks, titres, navigation et contenu principal).",
+    steps: [
+      {
+        title: "&Eacute;tape 1 ? Landmarks",
+        description:
+          "Remplacez les <code>&lt;div&gt;</code> g&eacute;n&eacute;riques par les balises structurelles <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> et <code>&lt;footer&gt;</code>."
+      },
+      {
+        title: "&Eacute;tape 2 ? Titres et hi&eacute;rarchie",
+        description:
+          "Assurez-vous que la page contient un <code>&lt;h1&gt;</code> unique et que les sections logiques sont introduites par des titres structur&eacute;s."
+      },
+      {
+        title: "&Eacute;tape 3 ? Navigation accessible",
+        description:
+          "Ajoutez un lien d'&eacute;vitement et un libell&eacute; accessible sur la navigation (par exemple <code>aria-label=&quot;Navigation principale&quot;</code>)."
+      }
+    ],
+    starterCode: `<div class="page">
+  <div class="top">
+    <div class="logo">AccessiWorld</div>
+    <div class="menu">
+      <a href="#">Accueil</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="content">
+    <div class="title">Construisons un web inclusif</div>
+    <div class="intro">
+      Cr&eacute;ons des exp&eacute;riences accessibles et conformes au RGAA pour tous vos utilisateurs.
+    </div>
+  </div>
+  <div class="bottom">&copy; 2025 AccessiWorld</div>
+</div>`,
+    solution: `<a class="skip-link" href="#contenu-principal">Passer au contenu</a>
+<header class="hero-header">
+  <div class="logo">AccessiWorld</div>
+  <nav aria-label="Navigation principale">
+    <ul>
+      <li><a href="#">Accueil</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+<main id="contenu-principal">
+  <article>
+    <header>
+      <h1>Construisons un web inclusif</h1>
+    </header>
+    <p>
+      Cr&eacute;ons des exp&eacute;riences accessibles et conformes au RGAA pour tous vos utilisateurs.
+    </p>
+  </article>
+</main>
+<footer>
+  <p>&copy; 2025 AccessiWorld</p>
+</footer>`,
+    success:
+      "Excellent : la page est s&eacute;mantiquement structur&eacute;e, les landmarks sont pr&eacute;sents et la navigation est accessible.",
+    failure:
+      "V&eacute;rifiez la pr&eacute;sence des landmarks (<code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code>), d'un <code>h1</code> unique et d'un lien d'&eacute;vitement.",
+    validator: (code) => {
+      const str = code.toLowerCase();
+      return (
+        str.includes("<header") &&
+        str.includes("<nav") &&
+        str.includes("aria-label") &&
+        str.includes("skip-link") &&
+        str.includes("<main") &&
+        str.includes("<footer") &&
+        str.includes("<h1")
+      );
+    },
+  },
+  {
     id: "exercice-alt",
     title: "Image bouton &mdash; alternative pertinente",
     level: "Fondamentaux",
@@ -451,6 +535,26 @@ function renderExercises() {
     const goal = document.createElement("p");
     goal.innerHTML = `<strong>Objectif :</strong> ${exercise.goal}`;
     card.appendChild(goal);
+
+    if (exercise.steps?.length) {
+      const stepsList = document.createElement("ol");
+      stepsList.className = "exercise-steps";
+      exercise.steps.forEach((step) => {
+        const stepItem = document.createElement("li");
+        const stepTitle = document.createElement("strong");
+        stepTitle.innerHTML = step.title;
+        stepItem.appendChild(stepTitle);
+
+        if (step.description) {
+          const stepDescription = document.createElement("p");
+          stepDescription.innerHTML = step.description;
+          stepItem.appendChild(stepDescription);
+        }
+
+        stepsList.appendChild(stepItem);
+      });
+      card.appendChild(stepsList);
+    }
 
     const starter = document.createElement("details");
     starter.innerHTML = `<summary>Voir le code initial</summary><pre><code>${escapeHtml(
