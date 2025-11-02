@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Angular &amp; accessibilit&eacute; &mdash; Acad&eacute;mie RGAA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header class="sub-hero" role="banner">
+      <div class="container sub-hero__content">
+        <p class="sub-hero__breadcrumbs">
+          <a href="index.html">Accueil</a> &rsaquo; Angular &amp; accessibilit&eacute;
+        </p>
+        <h1>Construire des applications Angular accessibles</h1>
+        <p>
+          Int&eacute;grer l&rsquo;accessibilit&eacute; dans chaque couche d&rsquo;une application Angular&nbsp;: architecture, composants, formulaires, Angular Material, tests unitaires et end-to-end avec axe-core et Cypress.
+        </p>
+        <nav class="sub-nav" aria-label="Navigation du cours">
+          <ul>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#templates">Templates &amp; composants</a></li>
+            <li><a href="#forms">Formulaires</a></li>
+            <li><a href="#material">Angular Material &amp; CDK</a></li>
+            <li><a href="#tests">Tests &amp; CI/CD</a></li>
+            <li><a href="#checklists">Checklists</a></li>
+            <li><a href="#ressources">Ressources</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section id="architecture" class="content-section">
+        <div class="container">
+          <h2>Architecture inclusive</h2>
+          <div class="two-column">
+            <article>
+              <h3>Structure du projet</h3>
+              <ul>
+                <li>Utiliser les <em>standalone components</em> pour limiter l&rsquo;encombrement des modules.</li>
+                <li>Segmenter les layouts (<code>ShellComponent</code>) et les pages fonctionnelles (<code>FeatureComponent</code>).</li>
+                <li>Mettre en place un <code>AccessibilityService</code> pour centraliser annonces, focus, raccourcis.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>Routing &amp; titres</h3>
+              <ul>
+                <li>Injecter <code>Title</code> et <code>Meta</code> pour mettre &agrave; jour le titre &amp; la description &agrave; chaque navigation.</li>
+                <li>Utiliser <code>ViewportScroller</code> pour ramener le focus sur le contenu principal.</li>
+                <li>Configurer des routes accessibles (lien d&rsquo;&eacute;vitement, <code>aria-current</code> sur les liens actifs).</li>
+              </ul>
+            </article>
+          </div>
+          <pre><code>import { Injectable, inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+
+@Injectable({ providedIn: 'root' })
+export class AccessibilityService {
+  private readonly title = inject(Title);
+  private readonly liveAnnouncer = inject(LiveAnnouncer);
+
+  setPageTitle(label: string): void {
+    this.title.setTitle(`Acad&eacute;mie RGAA &mdash; ${label}`);
+  }
+
+  announce(message: string, politeness: 'polite' | 'assertive' = 'polite'): void {
+    this.liveAnnouncer.announce(message, politeness);
+  }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="templates" class="content-section">
+        <div class="container">
+          <h2>Templates &amp; composants accessibles</h2>
+          <div class="two-column">
+            <article>
+              <h3>Gestion du focus</h3>
+              <p>Injectez <code>FocusMonitor</code> pour suivre le mode d&rsquo;interaction (clavier/souris) et appliquez vos styles de focus.</p>
+              <pre><code>import { Component, ElementRef, OnDestroy } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+
+@Component({
+  selector: 'app-primary-button',
+  template: `&lt;button class="btn btn--primary"&gt;&lt;ng-content&gt;&lt;/ng-content&gt;&lt;/button&gt;`
+})
+export class PrimaryButtonComponent implements OnDestroy {
+  constructor(private fm: FocusMonitor, private el: ElementRef&lt;HTMLElement&gt;) {
+    this.fm.monitor(this.el.nativeElement, true).subscribe(origin =&gt; {
+      if (origin === 'keyboard') {
+        this.el.nativeElement.classList.add('focus-ring');
+      } else {
+        this.el.nativeElement.classList.remove('focus-ring');
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.fm.stopMonitoring(this.el.nativeElement);
+  }
+}</code></pre>
+            </article>
+            <article>
+              <h3>Composants personnalis&eacute;s</h3>
+              <ul>
+                <li>Exposez des attributs ARIA au niveau du composant (<code>@HostBinding('attr.aria-expanded')</code>).</li>
+                <li>Supportez les &eacute;v&eacute;nements clavier (<code>@HostListener</code> sur <kbd>Enter</kbd>/<kbd>Space</kbd>).</li>
+                <li>Fournissez du texte alternatif via <code>@Input()</code> et <code>aria-label</code>.</li>
+              </ul>
+            </article>
+          </div>
+          <pre><code>import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-toggle',
+  template: `
+    &lt;span class="toggle__handle" [class.toggle__handle--on]="pressed"&gt;&lt;/span&gt;
+    &lt;span class="visually-hidden"&gt;{{ label }}&lt;/span&gt;
+  `,
+  host: {
+    role: 'button',
+    tabindex: '0'
+  }
+})
+export class ToggleComponent {
+  @Output() readonly changed = new EventEmitter&lt;boolean&gt;();
+  @Input() label = 'Activer la fonction';
+  @HostBinding('attr.aria-pressed') pressed = false;
+  @HostBinding('attr.aria-label') get ariaLabel(): string {
+    return this.label;
+  }
+
+  @HostListener('click')
+  @HostListener('keydown.enter')
+  @HostListener('keydown.space', ['$event'])
+  toggle(event?: KeyboardEvent): void {
+    if (event) {
+      event.preventDefault();
+    }
+    this.pressed = !this.pressed;
+    this.changed.emit(this.pressed);
+  }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="forms" class="content-section">
+        <div class="container">
+          <h2>Formulaires r&eacute;actifs accessibles</h2>
+          <div class="guide-callout">
+            <p><strong>Principes :</strong></p>
+            <ul>
+              <li>Associer chaque <code>label</code> &agrave; un <code>formControlName</code>.</li>
+              <li>Afficher les erreurs sous le champ avec <code>aria-describedby</code> et <code>aria-live="polite"</code>.</li>
+              <li>G&eacute;rer le focus sur la premi&egrave;re erreur apr&egrave;s soumission.</li>
+            </ul>
+          </div>
+          <pre><code>import { Component, ElementRef, QueryList, ViewChildren, inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+
+@Component({
+  selector: 'app-signup-form',
+  templateUrl: './signup-form.component.html'
+})
+export class SignupFormComponent {
+  private readonly fb = inject(FormBuilder);
+  @ViewChildren('field') private fields!: QueryList&lt;ElementRef&lt;HTMLElement&gt;&gt;;
+
+  readonly form = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(12)]],
+    updates: [false]
+  });
+
+  submit(): void {
+    if (this.form.invalid) {
+      const invalid = this.fields.find(field =&gt; field.nativeElement.getAttribute('aria-invalid') === 'true');
+      invalid?.nativeElement.focus();
+      return;
+    }
+    // Traitement API &amp; annonce accessibilit&eacute;
+  }
+}</code></pre>
+          <pre><code>&lt;form [formGroup]="form" (ngSubmit)="submit()" novalidate&gt;
+  &lt;div class="form-field"&gt;
+    &lt;label for="signup-email"&gt;Adresse &eacute;lectronique&lt;/label&gt;
+    &lt;input
+      #field
+      id="signup-email"
+      type="email"
+      formControlName="email"
+      [attr.aria-invalid]="form.controls.email.invalid"
+      aria-describedby="signup-email-erreur"
+      autocomplete="email"
+      required
+    /&gt;
+    &lt;p
+      id="signup-email-erreur"
+      class="form-error"
+      aria-live="polite"
+      *ngIf="form.controls.email.invalid && form.controls.email.touched"
+    &gt;
+      Fournissez une adresse valide.
+    &lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;div class="form-field"&gt;
+    &lt;label for="signup-password"&gt;Mot de passe&lt;/label&gt;
+    &lt;input
+      #field
+      id="signup-password"
+      type="password"
+      formControlName="password"
+      minlength="12"
+      [attr.aria-invalid]="form.controls.password.invalid"
+      aria-describedby="signup-password-help signup-password-erreur"
+      required
+    /&gt;
+    &lt;p id="signup-password-help" class="form-hint"&gt;
+      12 caract&egrave;res minimum, inclure majuscules/minuscules et chiffre.
+    &lt;/p&gt;
+    &lt;p
+      id="signup-password-erreur"
+      class="form-error"
+      aria-live="assertive"
+      *ngIf="form.controls.password.invalid && form.controls.password.touched"
+    &gt;
+      Mot de passe incomplet : compl&eacute;tez les exigences.
+    &lt;/p&gt;
+  &lt;/div&gt;
+
+  &lt;label class="checkbox"&gt;
+    &lt;input type="checkbox" formControlName="updates" /&gt;
+    Recevoir des actualit&eacute;s accessibilit&eacute;
+  &lt;/label&gt;
+
+  &lt;button type="submit" class="btn btn--primary"&gt;Cr&eacute;er le compte&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        </div>
+      </section>
+
+      <section id="material" class="content-section">
+        <div class="container">
+          <h2>Angular Material &amp; CDK</h2>
+          <div class="two-column">
+            <article>
+              <h3>Personnaliser le th&egrave;me</h3>
+              <ul>
+                <li>Utiliser <code>mat.define-dark-theme</code> avec des contrastes sup&eacute;rieurs &agrave; 4.5:1.</li>
+                <li>Activer les <em>density tokens</em> pour augmenter la taille des zones cliquables.</li>
+                <li>Remplacer les ic&ocirc;nes purement visuelles par <code>mat-icon</code> + texte cach&eacute;.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>CdkTrapFocus &amp; LiveAnnouncer</h3>
+              <ul>
+                <li>Utiliser <code>cdkTrapFocus</code> dans les modales/menus.</li>
+                <li>Utiliser <code>cdkFocusInitial</code> pour poser le focus d&egrave;s l&rsquo;ouverture.</li>
+                <li>Annoncer les changements via <code>LiveAnnouncer</code> ou <code>FocusMonitor</code>.</li>
+              </ul>
+            </article>
+          </div>
+          <pre><code>@Component({
+  selector: 'app-confirm-dialog',
+  template: `
+    &lt;h2 id="dialog-title" mat-dialog-title&gt;Confirmer l&apos;action&lt;/h2&gt;
+    &lt;div mat-dialog-content&gt;
+      &lt;p&gt;Cette modification affectera la roadmap accessibilit&eacute;.&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div mat-dialog-actions&gt;
+      &lt;button mat-stroked-button mat-dialog-close&gt;Annuler&lt;/button&gt;
+      &lt;button mat-flat-button color="accent" cdkFocusInitial (click)="confirm()"&gt;Valider&lt;/button&gt;
+    &lt;/div&gt;
+  `,
+  host: {
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-labelledby': 'dialog-title',
+    cdkTrapFocus: ''
+  }
+})
+export class ConfirmDialogComponent {
+  constructor(private accessibility: AccessibilityService) {}
+
+  confirm(): void {
+    this.accessibility.announce('Action confirm&eacute;e', 'assertive');
+  }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="tests" class="content-section">
+        <div class="container">
+          <h2>Tests automatis&eacute;s &amp; CI/CD</h2>
+          <div class="two-column">
+            <article>
+              <h3>axe-core dans Cypress</h3>
+              <pre><code>import 'cypress-axe';
+
+describe('Dashboard accessibilit&eacute;', () =&gt; {
+  beforeEach(() =&gt; {
+    cy.visit('/dashboard');
+    cy.injectAxe();
+  });
+
+  it('doit &ecirc;tre conforme', () =&gt; {
+    cy.checkA11y(null, {
+      includedImpacts: ['critical', 'serious']
+    });
+  });
+});</code></pre>
+            </article>
+            <article>
+              <h3>Lighthouse CI</h3>
+              <pre><code>{
+  "ci": {
+    "collect": {
+      "numberOfRuns": 2,
+      "staticDistDir": "dist/app/browser"
+    },
+    "assert": {
+      "assertions": {
+        "accessibility": ["error", { "minScore": 0.96 }]
+      }
+    }
+  }
+}</code></pre>
+            </article>
+          </div>
+          <div class="guide-callout">
+            <p><strong>Pipeline recommand&eacute; :</strong></p>
+            <ol>
+              <li>Linting avec <code>@angular-eslint</code> (r&egrave;gles <code>template/accessibility</code>).</li>
+              <li>Tests unitaires (Jest/Karma) incluant snapshot ARIA (<code>fixture.debugElement.attributes</code>).</li>
+              <li>Tests end-to-end Cypress + axe.</li>
+              <li>Lighthouse CI pour l&rsquo;accessibilit&eacute; de production.</li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section id="checklists" class="content-section">
+        <div class="container">
+          <h2>Checklists d&rsquo;int&eacute;gration</h2>
+          <table>
+            <caption>Checklist par sprint</caption>
+            <thead>
+              <tr>
+                <th scope="col">Phase</th>
+                <th scope="col">V&eacute;rifications</th>
+                <th scope="col">Responsable</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Conception</td>
+                <td>
+                  <ul>
+                    <li>Maquettes test&eacute;es avec contrastes &gt; 4.5:1.</li>
+                    <li>Composants identifi&eacute;s avec r&ocirc;les ARIA requis.</li>
+                  </ul>
+                </td>
+                <td>UX / UI</td>
+              </tr>
+              <tr>
+                <td>D&eacute;veloppement</td>
+                <td>
+                  <ul>
+                    <li>Navigation clavier test&eacute;e.</li>
+                    <li>Formulaires : labels, messages d&rsquo;erreur, <code>aria-live</code>.</li>
+                    <li>Widgets personnalis&eacute;s : focus + &eacute;tats ARIA synchronis&eacute;s.</li>
+                  </ul>
+                </td>
+                <td>Front-end</td>
+              </tr>
+              <tr>
+                <td>Validation</td>
+                <td>
+                  <ul>
+                    <li>Tests axe-core sans erreurs critiques.</li>
+                    <li>Tests lecteurs d&rsquo;&eacute;cran NVDA + VoiceOver.</li>
+                    <li>Rapport RGAA mis &agrave; jour.</li>
+                  </ul>
+                </td>
+                <td>QA / Accessibilit&eacute;</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="ressources" class="content-section">
+        <div class="container">
+          <h2>Ressources Angular accessibilit&eacute;</h2>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <h3>Angular CDK a11y</h3>
+              <p>Documentation officielle sur <code>FocusMonitor</code>, <code>LiveAnnouncer</code>, <code>ListKeyManager</code>.</p>
+              <a href="https://material.angular.io/cdk/a11y/overview" rel="noreferrer" target="_blank">Consulter</a>
+            </article>
+            <article class="resource-card">
+              <h3>Angular Material</h3>
+              <p>Guides de th&eacute;matisation, densit&eacute;, adaptateurs pour lecteurs d&rsquo;&eacute;cran.</p>
+              <a href="https://material.angular.io/guide/theming" rel="noreferrer" target="_blank">Explorer</a>
+            </article>
+            <article class="resource-card">
+              <h3>Cypress + axe-core</h3>
+              <p>Documentation et exemples pour automatiser les v&eacute;rifications accessibilit&eacute;.</p>
+              <a href="https://github.com/component-driven/cypress-axe" rel="noreferrer" target="_blank">Lire</a>
+            </article>
+            <article class="resource-card">
+              <h3>Checklist sprint</h3>
+              <p>Mod&egrave;le de suivi des actions accessibilit&eacute; dans vos sprints agiles.</p>
+              <a href="laboratoire.html">T&eacute;l&eacute;charger</a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__content">
+        <p>Acad&eacute;mie RGAA &mdash; Cours Angular accessibilit&eacute;.</p>
+        <p>Mise &agrave; jour : <span id="last-update"></span> &bull; <a href="index.html">Retour &agrave; l&rsquo;accueil</a></p>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

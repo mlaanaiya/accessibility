@@ -1,33 +1,33 @@
 const exercises = [
   {
-    id: "exercice-semantique",
-    title: "S&eacute;mantique HTML &mdash; mise en page pas &agrave; pas",
+    id: "semantique-step",
+    title: "S&eacute;mantique HTML &mdash; page marketing pas &agrave; pas",
     level: "Fondamentaux",
-    focus: "Structure s&eacute;mantique &middot; landmarks RGAA",
+    focus: "Landmarks, titres, navigation",
     context:
-      "Une page de destination est compos&eacute;e uniquement de <div> sans rep&egrave;res s&eacute;mantiques ni navigation clavier structur&eacute;e.",
+      "Une page marketing a &eacute;t&eacute; impl&eacute;ment&eacute;e uniquement avec des &lt;div&gt;. Aucun rep&egrave;re s&eacute;mantique ni lien d&rsquo;&eacute;vitement n&rsquo;est pr&eacute;sent.",
     goal:
-      "Ajouter progressivement une structure s&eacute;mantique compl&egrave;te (landmarks, titres, navigation et contenu principal).",
+      "Structurer la page avec des balises pertinentes, ajouter un lien d&rsquo;&eacute;vitement, des titres hi&eacute;rarchis&eacute;s et un contenu principal unique.",
     steps: [
       {
-        title: "&Eacute;tape 1 &middot; Landmarks",
+        title: "&Eacute;tape&nbsp;1 &mdash; Landmarks",
         description:
-          "Remplacez les <code>&lt;div&gt;</code> g&eacute;n&eacute;riques par les balises structurelles <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> et <code>&lt;footer&gt;</code>."
+          "Remplacez les conteneurs g&eacute;n&eacute;riques par &lt;header&gt;, &lt;nav&gt;, &lt;main&gt; et &lt;footer&gt; avec des libell&eacute;s accessibles."
       },
       {
-        title: "&Eacute;tape 2 &middot; Titres et hi&eacute;rarchie",
+        title: "&Eacute;tape&nbsp;2 &mdash; Titres",
         description:
-          "Assurez-vous que la page contient un <code>&lt;h1&gt;</code> unique et que les sections logiques sont introduites par des titres structur&eacute;s."
+          "Ajoutez un &lt;h1&gt; unique et structurez les sections secondaires avec &lt;h2&gt; ou &lt;h3&gt;."
       },
       {
-        title: "&Eacute;tape 3 &middot; Navigation accessible",
+        title: "&Eacute;tape&nbsp;3 &mdash; Navigation",
         description:
-          "Ajoutez un lien d'&eacute;vitement et un libell&eacute; accessible sur la navigation (par exemple <code>aria-label=&quot;Navigation principale&quot;</code>)."
+          "Ajoutez un lien d&rsquo;&eacute;vitement avant le header et attribuez un <code>aria-label</code> &agrave; la navigation."
       }
     ],
-    starterCode: `<div class="page">
+    starterCode: String.raw`<div class="page">
   <div class="top">
-    <div class="logo">AccessiWorld</div>
+    <div class="brand">AccessiWorld</div>
     <div class="menu">
       <a href="#">Accueil</a>
       <a href="#services">Services</a>
@@ -37,15 +37,15 @@ const exercises = [
   <div class="content">
     <div class="title">Construisons un web inclusif</div>
     <div class="intro">
-      Cr&eacute;ons des exp&eacute;riences accessibles et conformes au RGAA pour tous vos utilisateurs.
+      Nous accompagnons vos &eacute;quipes produit vers la conformit&eacute; RGAA.
     </div>
   </div>
   <div class="bottom">&copy; 2025 AccessiWorld</div>
 </div>`,
-    solution: `<a class="skip-link" href="#contenu-principal">Passer au contenu</a>
-<header class="hero-header">
-  <div class="logo">AccessiWorld</div>
-  <nav aria-label="Navigation principale">
+    solution: String.raw`<a class="skip-link" href="#contenu-principal">Passer au contenu</a>
+<header class="top" role="banner">
+  <div class="brand">AccessiWorld</div>
+  <nav class="menu" aria-label="Navigation principale">
     <ul>
       <li><a href="#">Accueil</a></li>
       <li><a href="#services">Services</a></li>
@@ -59,958 +59,785 @@ const exercises = [
       <h1>Construisons un web inclusif</h1>
     </header>
     <p>
-      Cr&eacute;ons des exp&eacute;riences accessibles et conformes au RGAA pour tous vos utilisateurs.
+      Nous accompagnons vos &eacute;quipes produit vers la conformit&eacute; RGAA.
     </p>
   </article>
 </main>
-<footer>
+<footer role="contentinfo">
   <p>&copy; 2025 AccessiWorld</p>
 </footer>`,
     success:
-      "Excellent : la page est s&eacute;mantiquement structur&eacute;e, les landmarks sont pr&eacute;sents et la navigation est accessible.",
+      "Excellent&nbsp;! Les landmarks sont en place, la hi&eacute;rarchie de titres est coh&eacute;rente et la navigation dispose d&rsquo;un libell&eacute;.",
     failure:
-      "V&eacute;rifiez la pr&eacute;sence des landmarks (<code>header</code>, <code>nav</code>, <code>main</code>, <code>footer</code>), d'un <code>h1</code> unique et d'un lien d'&eacute;vitement.",
+      "V&eacute;rifiez la pr&eacute;sence de &lt;header&gt;, &lt;nav aria-label=&quot;...&quot;&gt;, &lt;main&gt;, &lt;footer&gt;, d&rsquo;un lien d&rsquo;&eacute;vitement et d&rsquo;un &lt;h1&gt; unique.",
     validator: (code) => {
-      const str = code.toLowerCase();
+      const normalized = code.toLowerCase();
       return (
-        str.includes("<header") &&
-        str.includes("<nav") &&
-        str.includes("aria-label") &&
-        str.includes("skip-link") &&
-        str.includes("<main") &&
-        str.includes("<footer") &&
-        str.includes("<h1")
+        normalized.includes("skip-link") &&
+        normalized.includes("<header") &&
+        normalized.includes("aria-label") &&
+        normalized.includes("<main") &&
+        normalized.includes("<footer") &&
+        normalized.includes("<h1")
       );
-    },
+    }
   },
   {
-    id: "exercice-alt",
-    title: "Image bouton &mdash; alternative pertinente",
-    level: "Fondamentaux",
-    focus: "Th&egrave;me 1 &middot; Alternatives textuelles",
-    context:
-      "Un bouton illustr&eacute; par une photo de chien guide ouvre un formulaire de contact d'adoption.",
-    goal:
-      "D&eacute;crire l'action r&eacute;elle d&eacute;clench&eacute;e par l'image tout en conservant la coh&eacute;rence visuelle.",
-    starterCode: `<button type="button">
-  <img src="chien-guide.png" width="160" height="120">
-  <span class="visually-hidden">Contact</span>
-</button>`,
-    solution: `<button type="button" class="cta-contact">
-  <img src="chien-guide.png" alt="Ouvrir le formulaire de demande d'adoption d'un chien guide" width="160" height="120">
-  <span class="visually-hidden">Contact</span>
-</button>`,
-    success:
-      "Parfait&nbsp;: l'alternative d&eacute;crit correctement l'action d&eacute;clench&eacute;e par le bouton visuel.",
-    failure:
-      "Ajoutez un attribut <code>alt</code> descriptif de l'action (formulaire, adoption, contact).",
-    validator: (code) => {
-      const normalised = code.toLowerCase().replace(/\s+/g, " ");
-      return (
-        normalised.includes("<img") &&
-        normalised.includes("alt=") &&
-        !normalised.includes("alt=\"\"") &&
-        (normalised.includes("formulaire") || normalised.includes("adoption") || normalised.includes("contact"))
-      );
-    },
-  },
-  {
-    id: "exercice-formulaire",
-    title: "Champ e-mail &mdash; &eacute;tiquettes et erreurs",
+    id: "form-errors",
+    title: "Formulaire &mdash; gestion des erreurs",
     level: "Interm&eacute;diaire",
-    focus: "Th&egrave;me 11 &middot; Formulaires",
+    focus: "aria-invalid, aria-describedby, alert",
     context:
-      "Un champ obligatoire se contente d'un placeholder et d'un message d'erreur g&eacute;n&eacute;rique.",
+      "Un formulaire de contact n&rsquo;annonce pas les erreurs et le focus ne se place pas sur le premier champ invalide.",
     goal:
-      "Relier label, aide et message d'erreur afin qu'ils soient annonc&eacute;s aux aides techniques.",
-    starterCode: `<form class="newsletter">
-  <input type="email" name="email" placeholder="Votre email" required>
-  <span class="error">Invalide</span>
-  <button type="submit">Envoyer</button>
-</form>`,
-    solution: `<form class="newsletter" novalidate>
-  <label for="email">Adresse e-mail professionnelle</label>
-  <input id="email" type="email" name="email" aria-describedby="email-help email-error" required>
-  <span id="email-help">Utilisez le format prenom.nom@domaine.fr.</span>
-  <span id="email-error" class="error" role="alert">Veuillez saisir une adresse valide.</span>
-  <button type="submit">Envoyer</button>
-</form>`,
-    success:
-      "Excellent&nbsp;: le champ, l'aide et l'erreur sont reli&eacute;s pour une annonce vocale claire.",
-    failure:
-      "Associez <code>label</code>/<code>for</code>, un identifiant sur l'input et <code>aria-describedby</code> pointant vers l'aide et l'erreur.",
-    validator: (code) => {
-      const str = code.toLowerCase();
-      return (
-        str.includes("<label") &&
-        str.includes("for=\"email\"") &&
-        str.includes("id=\"email\"") &&
-        str.includes("aria-describedby") &&
-        str.includes("role=\"alert\"")
-      );
-    },
-  },
-  {
-    id: "exercice-table",
-    title: "Tableau de disponibilit&eacute;s",
-    level: "Interm&eacute;diaire",
-    focus: "Th&egrave;me 5 &middot; Tableaux",
-    context:
-      "Les en-t&ecirc;tes de colonnes et de lignes sont absents, la lecture crois&eacute;e est impossible.",
-    goal:
-      "Structurer le tableau avec <code>caption</code>, <code>thead</code>/<code>tbody</code> et port&eacute;e des cellules d'en-t&ecirc;te.",
-    starterCode: `<table class="planning">
-  <tr>
-    <td></td>
-    <td>Lundi</td>
-    <td>Mardi</td>
-  </tr>
-  <tr>
-    <td>Accueil</td>
-    <td>9h-17h</td>
-    <td>9h-17h</td>
-  </tr>
-  <tr>
-    <td>Support</td>
-    <td>10h-18h</td>
-    <td>10h-18h</td>
-  </tr>
-</table>`,
-    solution: `<table class="planning">
-  <caption>Disponibilit&eacute;s de l'&eacute;quipe accessibilit&eacute;</caption>
-  <thead>
-    <tr>
-      <th scope="col">P&ocirc;le</th>
-      <th scope="col">Lundi</th>
-      <th scope="col">Mardi</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Accueil</th>
-      <td>9h-17h</td>
-      <td>9h-17h</td>
-    </tr>
-    <tr>
-      <th scope="row">Support</th>
-      <td>10h-18h</td>
-      <td>10h-18h</td>
-    </tr>
-  </tbody>
-</table>`,
-    success:
-      "Parfait&nbsp;: lecteurs d'&eacute;cran et loupe annoncent correctement lignes et colonnes.",
-    failure:
-      "Ajoutez <code>caption</code>, <code>thead</code>/<code>tbody</code> et les attributs <code>scope=\"col\"</code> / <code>scope=\"row\"</code>.",
-    validator: (code) => {
-      const str = code.toLowerCase();
-      return (
-        str.includes("<caption") &&
-        str.includes("<thead") &&
-        str.includes("scope=\"col\"") &&
-        str.includes("scope=\"row\"")
-      );
-    },
-  },
-  {
-    id: "exercice-live",
-    title: "Message de confirmation dynamique",
-    level: "Avanc&eacute;",
-    focus: "Th&egrave;me 7 &middot; Scripts et ARIA",
-    context:
-      "Une confirmation s'affiche apr&egrave;s l'envoi du formulaire mais rien n'est lu vocalement.",
-    goal:
-      "Ajouter une r&eacute;gion vivante adapt&eacute;e au niveau d'urgence du message.",
-    starterCode: `<form id="demo-form">
-  <label for="nom">Nom</label>
-  <input id="nom" name="nom" required>
-  <button type="submit">Envoyer</button>
-</form>
-<p id="confirmation" class="hidden">Votre demande a &eacute;t&eacute; transmise.</p>`,
-    solution: `<form id="demo-form">
-  <label for="nom">Nom</label>
-  <input id="nom" name="nom" required>
-  <button type="submit">Envoyer</button>
-</form>
-<p id="confirmation" role="status" aria-live="polite" class="hidden">Votre demande a &eacute;t&eacute; transmise.</p>`,
-    success:
-      "Tr&egrave;s bien&nbsp;: le message est diffus&eacute; automatiquement via <code>aria-live</code> polite.",
-    failure:
-      "Ajoutez <code>aria-live</code> (polite ou assertive) et <code>role=\"status\"</code> ou <code>role=\"alert\"</code> sur la zone.",
-    validator: (code) => {
-      const str = code.toLowerCase();
-      return (
-        str.includes("aria-live") &&
-        (str.includes("polite") || str.includes("assertive")) &&
-        (str.includes("role=\"status\"") || str.includes("role=\"alert\""))
-      );
-    },
-  },
-  {
-    id: "exercice-navigation",
-    title: "Navigation clavier &amp; lien d'&eacute;vitement",
-    level: "Avanc&eacute;",
-    focus: "Th&egrave;me 12 &middot; Navigation",
-    context:
-      "La page ne propose pas de raccourci clavier pour atteindre le contenu et la navigation n'est pas nomm&eacute;e.",
-    goal:
-      "Mettre en place un lien d'&eacute;vitement visible au focus et nommer la zone de navigation.",
-    starterCode: `<header>
-  <nav>
-    <ul>
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-<main>
-  <h1>Bienvenue</h1>
-</main>`,
-    solution: `<a class="skip-link" href="#contenu">Aller au contenu principal</a>
-<header>
-  <nav aria-label="Navigation principale">
-    <ul>
-      <li><a href="#">Accueil</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-<main id="contenu">
-  <h1>Bienvenue</h1>
-</main>`,
-    success:
-      "Navigation pr&ecirc;te&nbsp;: l'utilisateur peut atteindre le contenu et la navigation est annonc&eacute;e.",
-    failure:
-      "Ajoutez un lien d'&eacute;vitement ciblant le contenu principal et un <code>aria-label</code> sur <code>&lt;nav&gt;</code>.",
-    validator: (code) => {
-      const str = code.toLowerCase();
-      return str.includes("skip-link") && str.includes("aria-label") && str.includes("main id=");
-    },
-  },
-  {
-    id: "exercice-aria-tabs",
-    title: "Onglets ARIA &mdash; structure compl&egrave;te",
-    level: "Avanc&eacute;",
-    focus: "ARIA &middot; Patrons tablist",
-    context:
-      "Un ensemble d'onglets est construit avec des boutons sans informations d'association. Les lecteurs d'&eacute;cran ne comprennent pas la relation onglet/panneau.",
-    goal:
-      "Ajouter les r&ocirc;les requis (<code>tablist</code>, <code>tab</code>, <code>tabpanel</code>) et relier les onglets &agrave; leurs panneaux.",
-    starterCode: `<div class="tabs">
-  <div class="tabs-buttons">
-    <button data-panel="panel-1">Mission</button>
-    <button data-panel="panel-2">Offre</button>
-  </div>
-  <div class="tabs-panels">
-    <section id="panel-1">Notre mission est de rendre le web accessible.</section>
-    <section id="panel-2">D&eacute;couvrez nos offres d'accompagnement RGAA.</section>
-  </div>
-</div>`,
-    solution: `<div class="tabs" role="tablist" aria-label="Navigation principale">
-  <button role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true">Mission</button>
-  <button role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false">Offre</button>
+      "Relier les labels, annoncer les erreurs via <code>aria-live</code>, ajouter un message r&eacute;capitulatif et g&eacute;rer le focus.",
+    starterCode: String.raw`<form id="contact">
   <div>
-    <section role="tabpanel" id="panel-1" aria-labelledby="tab-1">Notre mission est de rendre le web accessible.</section>
-    <section role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>D&eacute;couvrez nos offres d'accompagnement RGAA.</section>
+    <label>Nom</label>
+    <input type="text" id="name" />
   </div>
-</div>`,
+  <div>
+    <label>Email</label>
+    <input type="email" id="email" />
+  </div>
+  <button type="submit">Envoyer</button>
+</form>
+<div id="messages"></div>
+<script>
+  const form = document.getElementById('contact');
+  const messages = document.getElementById('messages');
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const errors = [];
+    if (!form.name.value.trim()) errors.push('Nom requis');
+    if (!form.email.value.includes('@')) errors.push('Email invalide');
+    if (errors.length) {
+      messages.textContent = errors.join(', ');
+    } else {
+      messages.textContent = 'Envoy&eacute;';
+    }
+  });
+</script>`,
+    solution: String.raw`<form id="contact" novalidate>
+  <div>
+    <label for="name">Nom</label>
+    <input type="text" id="name" aria-describedby="name-error" aria-invalid="false" required />
+    <p id="name-error" class="visually-hidden"></p>
+  </div>
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" aria-describedby="email-error" aria-invalid="false" required />
+    <p id="email-error" class="visually-hidden"></p>
+  </div>
+  <button type="submit">Envoyer</button>
+</form>
+<div id="messages" role="alert" aria-live="assertive"></div>
+<script>
+  const form = document.getElementById('contact');
+  const messages = document.getElementById('messages');
+  const fields = ['name', 'email'];
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    let firstInvalid = null;
+    const errors = [];
+
+    fields.forEach(id => {
+      const input = form.querySelector('#' + id);
+      const error = document.getElementById(id + '-error');
+      input.setAttribute('aria-invalid', 'false');
+      error.textContent = '';
+      error.classList.add('visually-hidden');
+
+      if (!input.value.trim() || (id === 'email' && !input.value.includes('@'))) {
+        input.setAttribute('aria-invalid', 'true');
+        error.textContent = id === 'email' ? 'Saisissez une adresse valide.' : 'Ce champ est obligatoire.';
+        error.classList.remove('visually-hidden');
+        errors.push(error.textContent);
+        if (!firstInvalid) {
+          firstInvalid = input;
+        }
+      }
+    });
+
+    if (errors.length) {
+      messages.textContent = 'Formulaire incomplet : ' + errors.join(' ');
+      firstInvalid?.focus();
+    } else {
+      messages.textContent = 'Demande envoy&eacute;e avec succ&egrave;s.';
+    }
+  });
+</script>`,
     success:
-      "Super : la liste d'onglets est correctement annonc&eacute;e et chaque panneau est associ&eacute; &agrave; son onglet.",
+      "Parfait&nbsp;: les erreurs sont annonc&eacute;es via un <code>role=&quot;alert&quot;</code>, les champs sont reli&eacute;s aux messages et le focus est redirig&eacute;.",
     failure:
-      "Assurez-vous d'ajouter <code>role=&quot;tablist&quot;</code>, <code>role=&quot;tab&quot;</code>, <code>role=&quot;tabpanel&quot;</code> ainsi que les attributs <code>aria-controls</code> et <code>aria-labelledby</code>.",
+      "Assurez-vous d&rsquo;utiliser <code>aria-invalid</code>, <code>aria-describedby</code>, <code>role=&quot;alert&quot;</code> et de placer le focus sur le premier champ invalide.",
     validator: (code) => {
-      const str = code.toLowerCase();
+      const normalized = code.toLowerCase();
       return (
-        str.includes("role=\"tablist\"") &&
-        str.includes("role=\"tab\"") &&
-        str.includes("role=\"tabpanel\"") &&
-        str.includes("aria-controls") &&
-        str.includes("aria-labelledby")
+        normalized.includes("aria-invalid") &&
+        normalized.includes("aria-describedby") &&
+        normalized.includes("role=\"alert\"") &&
+        normalized.includes("focus()")
       );
-    },
+    }
   },
   {
-    id: "exercice-aria-menu",
-    title: "Bouton menu &amp; sous-menu ARIA",
+    id: "tabs-aria",
+    title: "Composant onglets ARIA",
     level: "Avanc&eacute;",
-    focus: "ARIA &middot; Menus contextuels",
+    focus: "role=tablist, aria-selected, aria-controls",
     context:
-      "Un bouton ouvre un sous-menu visuel mais les aides techniques ne savent pas qu'un menu est disponible.",
+      "Des onglets sont styl&eacute;s mais ne sont pas accessibles au clavier et n&rsquo;annoncent pas la section active.",
     goal:
-      "Ajoutez les r&ocirc;les de menu, d&eacute;clarez l'ouverture du sous-menu et assurez la navigation clavier.",
-    starterCode: `<div class="actions">
-  <button class="menu-button">Actions</button>
-  <div class="menu">
-    <a href="#">Dupliquer</a>
-    <a href="#">Archiver</a>
-  </div>
-</div>`,
-    solution: `<div class="actions">
+      "Impl&eacute;menter les r&ocirc;les ARIA, g&eacute;rer les fl&egrave;ches de navigation et mettre &agrave; jour les attributs dynamiques.",
+    starterCode: String.raw`<div class="tabs">
+  <button class="tab active">Introduction</button>
+  <button class="tab">Audit</button>
+  <button class="tab">Livraison</button>
+</div>
+<section class="panel">Bienvenue</section>
+<section class="panel" hidden>Audit RGAA</section>
+<section class="panel" hidden>Livraison</section>`,
+    solution: String.raw`<div class="tabs" role="tablist" aria-label="Parcours RGAA">
   <button
-    class="menu-button"
-    aria-haspopup="true"
-    aria-expanded="false"
-    aria-controls="actions-menu"
-  >Actions</button>
-  <ul id="actions-menu" role="menu" hidden>
-    <li role="none"><a role="menuitem" href="#">Dupliquer</a></li>
-    <li role="none"><a role="menuitem" href="#">Archiver</a></li>
-  </ul>
-</div>`,
+    id="tab-intro"
+    class="tab"
+    role="tab"
+    aria-controls="panel-intro"
+    aria-selected="true"
+    tabindex="0"
+  >Introduction</button>
+  <button
+    id="tab-audit"
+    class="tab"
+    role="tab"
+    aria-controls="panel-audit"
+    aria-selected="false"
+    tabindex="-1"
+  >Audit</button>
+  <button
+    id="tab-livraison"
+    class="tab"
+    role="tab"
+    aria-controls="panel-livraison"
+    aria-selected="false"
+    tabindex="-1"
+  >Livraison</button>
+</div>
+<section
+  id="panel-intro"
+  class="panel"
+  role="tabpanel"
+  aria-labelledby="tab-intro"
+>Bienvenue</section>
+<section
+  id="panel-audit"
+  class="panel"
+  role="tabpanel"
+  aria-labelledby="tab-audit"
+  hidden
+>Audit RGAA</section>
+<section
+  id="panel-livraison"
+  class="panel"
+  role="tabpanel"
+  aria-labelledby="tab-livraison"
+  hidden
+>Livraison</section>
+<script>
+  const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+  function activateTab(tab) {
+    tabs.forEach(button => {
+      const selected = button === tab;
+      button.setAttribute('aria-selected', String(selected));
+      button.setAttribute('tabindex', selected ? '0' : '-1');
+    });
+
+    panels.forEach(panel => {
+      const isAssociated = panel.getAttribute('aria-labelledby') === tab.id;
+      panel.toggleAttribute('hidden', !isAssociated);
+    });
+
+    tab.focus();
+  }
+
+  tabs.forEach((button, index) => {
+    button.addEventListener('click', () => activateTab(button));
+    button.addEventListener('keydown', event => {
+      const { key } = event;
+      if (key === 'ArrowRight' || key === 'ArrowLeft') {
+        event.preventDefault();
+        const delta = key === 'ArrowRight' ? 1 : -1;
+        const nextIndex = (index + delta + tabs.length) % tabs.length;
+        activateTab(tabs[nextIndex]);
+      }
+      if (key === 'Home') {
+        event.preventDefault();
+        activateTab(tabs[0]);
+      }
+      if (key === 'End') {
+        event.preventDefault();
+        activateTab(tabs[tabs.length - 1]);
+      }
+    });
+  });
+</script>`,
     success:
-      "Parfait : le bouton expose un menu conforme et les items sont annonc&eacute;s correctement.",
+      "Les onglets sont pleinement accessibles au clavier et annoncent les panneaux actifs. Bravo&nbsp;!",
     failure:
-      "Ajoutez <code>aria-haspopup</code>, <code>aria-expanded</code>, un identifiant contr&ocirc;l&eacute; et les r&ocirc;les <code>menu</code>/<code>menuitem</code>.",
+      "Assurez-vous d&rsquo;utiliser <code>role=&quot;tablist&quot;</code>, <code>aria-selected</code>, <code>aria-controls</code> et de g&eacute;rer les fl&egrave;ches.",
     validator: (code) => {
-      const str = code.toLowerCase();
+      const normalized = code.toLowerCase();
       return (
-        str.includes("aria-haspopup") &&
-        str.includes("aria-expanded") &&
-        str.includes("aria-controls") &&
-        str.includes("role=\"menu\"") &&
-        str.includes("role=\"menuitem\"")
+        normalized.includes("role=\"tablist\"") &&
+        normalized.includes("role=\"tab\"") &&
+        normalized.includes("aria-controls") &&
+        normalized.includes("aria-selected")
       );
-    },
+    }
   },
   {
-    id: "exercice-live-form",
-    title: "Formulaire &mdash; erreurs annonc&eacute;es dynamiquement",
-    level: "Avanc&eacute;",
-    focus: "Th&egrave;me 11 &middot; Feedback",
-    context:
-      "Un formulaire Angular affiche un message d'erreur mais celui-ci n'est pas annonc&eacute;.",
-    goal:
-      "Reliez le message d'erreur au champ et exposez l'information via un role appropri&eacute;.",
-    starterCode: `<label for="username">Nom d'utilisateur</label>
-<input id="username" type="text" required>
-<p class="error">Ce champ est obligatoire.</p>`,
-    solution: `<label for="username">Nom d'utilisateur</label>
-<input id="username" type="text" aria-describedby="username-error" aria-invalid="true" required>
-<p id="username-error" class="error" role="alert">Ce champ est obligatoire.</p>`,
-    success:
-      "Excellent : le message d'erreur est reli&eacute; au champ et annonc&eacute; comme alerte.",
-    failure:
-      "Ajoutez <code>aria-describedby</code>, <code>aria-invalid</code> et un <code>role=&quot;alert&quot;</code> sur le message.",
-    validator: (code) => {
-      const str = code.toLowerCase();
-      return (
-        str.includes("aria-describedby") &&
-        str.includes("aria-invalid") &&
-        str.includes("role=\"alert\"")
-      );
-    },
-  },
-  {
-    id: "exercice-angular-focus",
-    title: "Angular &mdash; gestion du focus sur un composant dynamiquement ajout&eacute;",
+    id: "angular-focus-monitor",
+    title: "Angular &mdash; gestion du focus",
     level: "Expert",
-    focus: "Angular &middot; CDK FocusMonitor",
+    focus: "Angular CDK FocusMonitor",
     context:
-      "Un composant personnalis&eacute; doit recevoir le focus lorsqu'il est affich&eacute; mais aucune logique n'est pr&eacute;vue.",
+      "Le dialogue Angular Material n&rsquo;annonce pas son ouverture et ne rend pas le focus aux boutons appelants.",
     goal:
-      "Utilisez le <code>FocusMonitor</code> du CDK pour placer le focus et nettoyer l'abonnement.",
-    starterCode: `import { Component, ElementRef } from '@angular/core';
+      "Utiliser <code>cdkFocusInitial</code>, <code>FocusMonitor</code> et un service d&rsquo;annonce pour g&eacute;rer l&rsquo;exp&eacute;rience.",
+    starterCode: String.raw`@Component({
+  selector: 'app-dialog',
+  template: `
+    <h2>Suppression</h2>
+    <button (click)="close()">Fermer</button>
+  `
+})
+export class DialogComponent {
+  close() {}
+}
 
 @Component({
-  selector: 'app-confirmation-banner',
+  selector: 'app-dashboard',
   template: `
-    <div class="banner">
-      <p>Profil mis &agrave; jour.</p>
-      <button>Fermer</button>
-    </div>
-  `,
+    <button (click)="open()">Supprimer</button>
+  `
 })
-export class ConfirmationBannerComponent {
-  constructor(private host: ElementRef) {}
-
-  ngAfterViewInit(): void {
-    // TODO focus
-  }
+export class DashboardComponent {
+  open() {}
 }
 `,
-    solution: `import { Component, ElementRef } from '@angular/core';
-import { FocusMonitor } from '@angular/cdk/a11y';
-
-@Component({
-  selector: 'app-confirmation-banner',
+    solution: String.raw`@Component({
+  selector: 'app-dialog',
   template: `
-    <div class="banner" tabindex="-1">
-      <p>Profil mis &agrave; jour.</p>
-      <button>Fermer</button>
+    <h2 id="dialog-title">Suppression</h2>
+    <p id="dialog-desc">Confirmez la suppression de l&apos;&eacute;l&eacute;ment.</p>
+    <div>
+      <button mat-stroked-button (click)="close()">Annuler</button>
+      <button mat-flat-button color="warn" cdkFocusInitial (click)="confirm()">Confirmer</button>
     </div>
   `,
+  host: {
+    role: 'dialog',
+    'aria-modal': 'true',
+    'aria-labelledby': 'dialog-title',
+    'aria-describedby': 'dialog-desc',
+    cdkTrapFocus: ''
+  }
 })
-export class ConfirmationBannerComponent {
-  constructor(private focusMonitor: FocusMonitor, private host: ElementRef) {}
-
-  ngAfterViewInit(): void {
-    this.focusMonitor.focusVia(this.host.nativeElement.querySelector('.banner'), 'program');
+export class DialogComponent {
+  constructor(private readonly ref: MatDialogRef<DialogComponent>, private readonly accessibility: AccessibilityService) {
+    this.accessibility.announce('Dialogue ouvert : confirmer la suppression', 'assertive');
   }
 
-  ngOnDestroy(): void {
-    this.focusMonitor.stopMonitoring(this.host.nativeElement.querySelector('.banner'));
+  close(): void {
+    this.ref.close(false);
+  }
+
+  confirm(): void {
+    this.ref.close(true);
+  }
+}
+
+@Component({
+  selector: 'app-dashboard',
+  template: `
+    <button #trigger mat-raised-button color="warn" (click)="open(trigger)">Supprimer</button>
+  `
+})
+export class DashboardComponent {
+  constructor(private readonly dialog: MatDialog, private readonly fm: FocusMonitor) {}
+
+  open(trigger: HTMLElement): void {
+    const ref = this.dialog.open(DialogComponent);
+    ref.afterClosed().subscribe(() => {
+      this.fm.focusVia(trigger, 'program');
+    });
   }
 }
 `,
     success:
-      "Bien vu : le focus est g&eacute;r&eacute; par le CDK et lib&eacute;r&eacute; lors de la destruction du composant.",
+      "La bo&icirc;te de dialogue annonce son ouverture, capture le focus et le restitue apr&egrave;s fermeture.",
     failure:
-      "Importez <code>FocusMonitor</code>, appelez <code>focusVia</code> dans <code>ngAfterViewInit</code> et arr&ecirc;tez la surveillance dans <code>ngOnDestroy</code>.",
+      "Employez <code>cdkFocusInitial</code>, <code>FocusMonitor</code> et une annonce via le service d&rsquo;accessibilit&eacute;.",
     validator: (code) => {
-      const str = code.toLowerCase();
-      return str.includes("focusmonitor") && str.includes("focusvia") && str.includes("ngondestroy");
-    },
-  },
+      const normalized = code.toLowerCase();
+      return (
+        normalized.includes("cdkfocusinitial") &&
+        normalized.includes("focusmonitor") &&
+        normalized.includes("aria-modal")
+      );
+    }
+  }
 ];
 
 const quizQuestions = [
   {
-    id: "quiz-contrast",
+    id: "contrast",
+    category: "Th&egrave;me 3",
     question:
-      "Quel contraste minimum le RGAA exige-t-il pour un texte courant sur un fond uni&nbsp;?",
-    answers: [
-      { value: "21", label: "2&nbsp;:&nbsp;1", correct: false },
-      { value: "31", label: "3&nbsp;:&nbsp;1", correct: false },
-      { value: "45", label: "4,5&nbsp;:&nbsp;1", correct: true },
-      { value: "71", label: "7&nbsp;:&nbsp;1", correct: false },
+      "Quel contraste minimum le RGAA 4.1 exige-t-il pour un texte courant (niveau AA) ?",
+    options: [
+      { label: "2.5:1", correct: false },
+      { label: "3:1", correct: false },
+      { label: "4.5:1", correct: true },
+      { label: "7:1", correct: false }
     ],
     explanation:
-      "Le crit&egrave;re RGAA 3.2 reprend WCAG 1.4.3&nbsp;: 4,5&nbsp;:&nbsp;1 pour le texte normal et 3&nbsp;:&nbsp;1 pour le texte large.",
+      "Le RGAA reprend les exigences WCAG&nbsp;2.1&nbsp;: 4.5:1 pour les textes normaux, 3:1 pour les gros titres (> 24&nbsp;px ou 19&nbsp;px gras)."
   },
   {
-    id: "quiz-alt",
-    question: "Quand est-il pertinent de laisser un attribut <code>alt</code> vide&nbsp;?",
-    answers: [
-      { value: "decor", label: "Lorsque l'image est strictement d&eacute;corative", correct: true },
-      { value: "info", label: "Quand l'image contient une information essentielle", correct: false },
-      { value: "cta", label: "Pour les ic&ocirc;nes de bouton sans texte visible", correct: false },
-      { value: "logo", label: "Pour le logo du site", correct: false },
+    id: "aria-label",
+    category: "ARIA",
+    question: "Quand laisser un attribut <code>alt</code> vide est-il recommand&eacute; ?",
+    options: [
+      { label: "Pour toutes les ic&ocirc;nes", correct: false },
+      { label: "Pour les images purement d&eacute;coratives", correct: true },
+      { label: "Pour les images de texte", correct: false },
+      { label: "Jamais", correct: false }
     ],
     explanation:
-      "Un <code>alt</code> vide n'est acceptable que si l'image est pure d&eacute;coration et qu'aucune information n'est perdue.",
+      "Les images purement d&eacute;coratives doivent avoir <code>alt=&quot;&quot;</code> et <code>role=&quot;presentation&quot;</code> pour &ecirc;tre ignor&eacute;es."
   },
   {
-    id: "quiz-landmarks",
-    question: "Combien d'&eacute;l&eacute;ments <code>&lt;main&gt;</code> une page conforme peut-elle contenir&nbsp;?",
-    answers: [
-      { value: "zero", label: "Aucun", correct: false },
-      { value: "one", label: "Un seul", correct: true },
-      { value: "two", label: "Deux, un par section", correct: false },
-      { value: "multi", label: "Autant que n&eacute;cessaire", correct: false },
-    ],
-    explanation: "La zone principale doit &ecirc;tre unique pour garantir un rep&egrave;re clair aux aides techniques.",
-  },
-  {
-    id: "quiz-form",
-    question: "Quel dispositif respecte le crit&egrave;re RGAA 11.9 sur l'aide &agrave; la saisie&nbsp;?",
-    answers: [
-      { value: "placeholder", label: "Un placeholder d&eacute;taill&eacute; uniquement", correct: false },
-      { value: "hint", label: "Un texte reli&eacute; via <code>aria-describedby</code>", correct: true },
-      { value: "color", label: "La coloration du champ en rouge", correct: false },
-      { value: "popup", label: "Une fen&ecirc;tre modale non focusable", correct: false },
+    id: "main-element",
+    category: "HTML",
+    question: "Combien d&rsquo;&eacute;l&eacute;ments <code>&lt;main&gt;</code> une page conforme doit-elle contenir ?",
+    options: [
+      { label: "Autant que de sections", correct: false },
+      { label: "Un seul", correct: true },
+      { label: "Deux (desktop/mobile)", correct: false },
+      { label: "Un par layout", correct: false }
     ],
     explanation:
-      "Les aides doivent &ecirc;tre textuelles, accessibles et reli&eacute;es au champ (aria-describedby, aria-details).",
+      "RGAA 9.1 exige un contenu principal unique, donc un seul <code>&lt;main&gt;</code> ou <code>role=&quot;main&quot;</code> par page."
   },
   {
-    id: "quiz-focus",
-    question: "Quelle strat&eacute;gie garantit un ordre de tabulation coh&eacute;rent&nbsp;?",
-    answers: [
-      { value: "tabindex10", label: "Utiliser <code>tabindex=&quot;10&quot;</code> sur les &eacute;l&eacute;ments cl&eacute;s", correct: false },
-      { value: "dom", label: "Aligner l'ordre du DOM et l'ordre visuel", correct: true },
-      { value: "css", label: "Inverser l'ordre avec flexbox", correct: false },
-      { value: "skip", label: "Supprimer les liens d'&eacute;vitement", correct: false },
+    id: "keyboard-order",
+    category: "Th&egrave;me 7",
+    question: "Quelle strat&eacute;gie garantit un ordre de tabulation coh&eacute;rent ?",
+    options: [
+      { label: "Utiliser tabindex &gt; 0", correct: false },
+      { label: "Respecter l&rsquo;ordre du DOM et les balises natives", correct: true },
+      { label: "Masquer les &eacute;l&eacute;ments focusables", correct: false },
+      { label: "Inverser l&rsquo;ordre du DOM", correct: false }
     ],
     explanation:
-      "L'ordre du focus d&eacute;pend de l'ordre du DOM&nbsp;: gardez un DOM logique et &eacute;vitez les <code>tabindex</code> positifs.",
+      "L&rsquo;ordre de tabulation suit le DOM. Utilisez les balises natives, &eacute;vitez <code>tabindex</code> positif et ajustez l&rsquo;ordre via CSS si besoin."
   },
   {
-    id: "quiz-media",
-    question:
-      "Quel dispositif est obligatoire pour une vid&eacute;o contenant des dialogues selon le RGAA&nbsp;?",
-    answers: [
-      { value: "sub", label: "Sous-titres synchronis&eacute;s", correct: true },
-      { value: "chapter", label: "Chapitres interactifs", correct: false },
-      { value: "poster", label: "Image de couverture avec <code>alt</code>", correct: false },
-      { value: "transcript", label: "Transcription uniquement", correct: false },
+    id: "angular-testing",
+    category: "Angular",
+    question: "Quel outil int&eacute;grer pour automatiser les v&eacute;rifications accessibilit&eacute; dans Cypress ?",
+    options: [
+      { label: "jest-axe", correct: false },
+      { label: "axe-core / cypress-axe", correct: true },
+      { label: "pa11y", correct: false },
+      { label: "loki", correct: false }
     ],
-    explanation: "Les vid&eacute;os avec dialogues doivent fournir des sous-titres synchronis&eacute;s (crit&egrave;re 4.1).",
-  },
+    explanation:
+      "<code>cypress-axe</code> injecte <code>axe-core</code> dans les tests end-to-end pour d&eacute;tecter des violations WCAG/RGAA automatiquement."
+  }
 ];
 
 const flashcards = [
   {
-    term: "Langue du document",
-    when: "D&eacute;clarer l'attribut <code>lang</code> sur <code>&lt;html&gt;</code> pour informer les aides techniques.",
-    avoid: "Oublier les changements de langue pour des citations &eacute;trang&egrave;res.",
-    tip: "Utilisez <code>lang=&quot;fr&quot;</code> sur <code>&lt;html&gt;</code> et <code>lang=&quot;en&quot;</code> (ou autre) sur les segments concern&eacute;s.",
+    front: "Quand utiliser <code>aria-live=&quot;assertive&quot;</code> ?",
+    back: "Pour des alertes critiques &agrave; annoncer imm&eacute;diatement (erreur bloquante, d&eacute;connexion).",
+    tag: "ARIA"
   },
   {
-    term: "aria-live",
-    when: "Notifier une mise &agrave; jour dynamique (r&eacute;sultat, confirmation).",
-    avoid: "Appliquer <code>aria-live</code> sur des zones changeant en continu.",
-    tip: "Pr&eacute;f&eacute;rez <code>polite</code> pour &eacute;viter de couper la lecture en cours.",
+    front: "ARIA &mdash; <code>aria-describedby</code>",
+    back: "Associe un texte d&rsquo;aide ou une erreur suppl&eacute;mentaire. Utiliser l&rsquo;id de l&rsquo;&eacute;l&eacute;ment descriptif.",
+    tag: "Formulaire"
   },
   {
-    term: "role=button",
-    when: "Dernier recours si aucun &eacute;l&eacute;ment natif ne convient.",
-    avoid: "L'utiliser &agrave; la place d'un <code>&lt;button&gt;</code> disponible.",
-    tip: "Ajoutez gestion clavier (Entr&eacute;e, Espace) et <code>aria-pressed</code> pour les boutons &agrave; &eacute;tat.",
+    front: "RGAA &mdash; Th&egrave;me 8",
+    back: "Traitement des documents. Fournir une alternative structur&eacute;e (HTML, PDF balis&eacute;, ePub).",
+    tag: "RGAA"
   },
   {
-    term: "Focus visible",
-    when: "Toujours&nbsp;: tout &eacute;l&eacute;ment focusable doit afficher un focus contrast&eacute;.",
-    avoid: "Supprimer <code>outline</code> sans alternative accessible.",
-    tip: "Utilisez <code>:focus-visible</code> pour un rendu propre souris/clavier.",
-  },
-  {
-    term: "Liens d'&eacute;vitement",
-    when: "Pages longues ou menus r&eacute;p&eacute;titifs.",
-    avoid: "Les masquer via <code>display:none</code> (le focus serait impossible).",
-    tip: "Positionnez-les avant le header, rendez-les visibles au focus.",
-  },
+    front: "Angular CDK &mdash; FocusMonitor",
+    back: "Suivre l&rsquo;origine du focus (clavier, souris) pour afficher des styles adapt&eacute;s.",
+    tag: "Angular"
+  }
 ];
 
-const interviewQA = [
+const interviewQuestions = [
   {
-    question: "Comment menez-vous un audit RGAA complet sur une application riche&nbsp;?",
+    title: "Comment conduire un audit RGAA ?",
     answer:
-      "Je combine une analyse documentaire, un audit manuel th&eacute;matique et des tests utilisateurs cibl&eacute;s.",
-    bullets: [
-      "D&eacute;finir le p&eacute;rim&egrave;tre, les parcours critiques et l'&eacute;chantillon repr&eacute;sentatif.",
-      "&Eacute;valuer chaque crit&egrave;re en documentant r&egrave;gle, &eacute;cart, impact et correction attendue.",
-      "Prioriser les actions selon la gravit&eacute; et orchestrer un plan de rem&eacute;diation.",
-      "Clore par une d&eacute;claration d'accessibilit&eacute; mise &agrave; jour et un plan pluriannuel.",
-    ],
+      "Expliquer la constitution de l&rsquo;&eacute;chantillon, le test manuel par crit&egrave;re, la collecte de preuves (captures, code) et la r&eacute;daction du rapport avec priorit&eacute;s et d&eacute;lais.",
+    focus: "Audit"
   },
   {
-    question: "Quelles pratiques int&eacute;grez-vous dans un cycle agile pour garantir l'accessibilit&eacute;&nbsp;?",
+    title: "Comment g&eacute;rer la dette accessibilit&eacute; dans un sprint agile ?",
     answer:
-      "Je rends l'accessibilit&eacute; visible &agrave; chaque sprint via crit&egrave;res d'acceptation, revues et tests int&eacute;gr&eacute;s.",
-    bullets: [
-      "Definition of done incluant contraste, navigation clavier, messages d'erreur.",
-      "Revues de design/code avec checklist RGAA partag&eacute;e.",
-      "Tests automatis&eacute;s (axe-core), revues NVDA/VoiceOver, bin&ocirc;mes design-dev.",
-      "R&eacute;trospectives d&eacute;di&eacute;es pour traiter la dette et partager les retours utilisateurs.",
-    ],
+      "Int&eacute;grer des jalons de revue a11y, inclure des tests axe-core dans la CI, faire des d&eacute;mos accessibles et planifier des chantiers de correction.",
+    focus: "Processus"
   },
   {
-    question: "Donnez trois erreurs critiques souvent d&eacute;tect&eacute;es en audit RGAA.",
+    title: "Expliquez l&rsquo;utilit&eacute; de <code>aria-describedby</code> dans un formulaire.",
     answer:
-      "Alternatives manquantes, formulaires non labellis&eacute;s et focus clavier absent.",
-    bullets: [
-      "Images ou ic&ocirc;nes CTA sans description.",
-      "Champs dynamiques sans <code>aria-live</code>/<code>role=\"alert\"</code> pour les erreurs.",
-      "Modales qui pi&egrave;gent le focus &agrave; l'ouverture ou &agrave; la fermeture.",
-    ],
+      "Il relie un champ &agrave; un message d&rsquo;aide ou d&rsquo;erreur. Les technologies d&rsquo;assistance lisent ce texte apr&egrave;s le label, ce qui contextualise l&rsquo;entr&eacute;e.",
+    focus: "Formulaire"
   },
   {
-    question: "Quelle approche adoptez-vous pour accompagner un client vers la conformit&eacute;&nbsp;?",
+    title: "Comment justifier l&rsquo;investissement accessibilit&eacute; aupr&egrave;s d&rsquo;un d&eacute;cideur ?",
     answer:
-      "Je construis une trajectoire m&ecirc;lant quick wins, transfert de comp&eacute;tences et gouvernance durable.",
-    bullets: [
-      "Audit initial et priorisation des chantiers critiques.",
-      "Coaching des &eacute;quipes (design, d&eacute;veloppement, contenu) avec ateliers pratiques.",
-      "Suivi d'indicateurs, mise &agrave; jour de la feuille de route et communication r&eacute;guli&egrave;re.",
-    ],
-  },
-  {
-    question: "Comment expliquez-vous les b&eacute;n&eacute;fices business de l'accessibilit&eacute; &agrave; un d&eacute;cideur&nbsp;?",
-    answer:
-      "Je d&eacute;montre l'impact sur l'exp&eacute;rience client, la conformit&eacute; l&eacute;gale et la performance produit.",
-    bullets: [
-      "+15&nbsp;% de clients potentiels concern&eacute;s par un handicap permanent ou temporaire.",
-      "R&eacute;duction des co&ucirc;ts de maintenance en int&eacute;grant l'accessibilit&eacute; d&egrave;s la conception.",
-      "Am&eacute;lioration SEO/performance via une structure s&eacute;mantique claire.",
-    ],
-  },
+      "Insister sur la conformit&eacute; l&eacute;gale, la r&eacute;duction des risques, l&rsquo;ouverture &agrave; 20&nbsp;% de la population et l&rsquo;am&eacute;lioration de l&rsquo;exp&eacute;rience client.",
+    focus: "Business"
+  }
 ];
+
+function updateLastUpdate() {
+  const output = document.getElementById("last-update");
+  if (!output) return;
+  const now = new Date();
+  output.textContent = now.toLocaleDateString("fr-FR", {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  });
+}
+
+function renderExercises(root) {
+  exercises.forEach((exercise) => {
+    const article = document.createElement("article");
+    article.className = "exercise";
+    article.setAttribute("data-id", exercise.id);
+
+    const stepsFragment = exercise.steps
+      ? `<ol class="exercise-steps">${exercise.steps
+          .map(
+            (step) =>
+              `<li><strong>${step.title}</strong> &mdash; ${step.description}</li>`
+          )
+          .join("")}</ol>`
+      : "";
+
+    article.innerHTML = `
+      <header>
+        <h3>${exercise.title}</h3>
+        <p class="exercise__meta">
+          <span class="tag">${exercise.level}</span>
+          <span>${exercise.focus}</span>
+        </p>
+      </header>
+      <p>${exercise.context}</p>
+      <p><strong>Objectif :</strong> ${exercise.goal}</p>
+      ${stepsFragment}
+      <label for="code-${exercise.id}" class="visually-hidden">Zone de saisie pour l&rsquo;exercice ${exercise.title}</label>
+      <textarea id="code-${exercise.id}" class="exercise__editor" spellcheck="false"></textarea>
+      <div class="exercise__actions">
+        <button type="button" data-action="preview">Pr&eacute;visualiser</button>
+        <button type="button" data-action="validate">Valider</button>
+        <button type="button" data-action="reset">R&eacute;initialiser</button>
+        <button type="button" data-action="solution">Afficher le corrig&eacute;</button>
+        <button type="button" data-action="copy-solution">Copier le corrig&eacute;</button>
+      </div>
+      <div class="exercise__feedback" role="status" aria-live="polite"></div>
+      <div class="exercise__preview">
+        <iframe title="Pr&eacute;visualisation exercice ${exercise.title}"></iframe>
+      </div>
+      <details class="exercise__solution">
+        <summary>Corrig&eacute; d&eacute;taill&eacute;</summary>
+        <pre><code>${escapeHtml(exercise.solution)}</code></pre>
+      </details>
+    `;
+
+    const textarea = article.querySelector("textarea");
+    if (textarea) {
+      textarea.value = exercise.starterCode;
+      textarea.addEventListener("keydown", (event) => {
+        if (event.ctrlKey && !event.shiftKey && event.key === "Enter") {
+          event.preventDefault();
+          validateExercise(article, exercise);
+        }
+        if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "p") {
+          event.preventDefault();
+          previewExercise(article, exercise);
+        }
+        if (event.ctrlKey && !event.shiftKey && event.key === "Backspace") {
+          event.preventDefault();
+          resetExercise(article, exercise);
+        }
+      });
+    }
+
+    article.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+      const action = target.getAttribute("data-action");
+      if (!action) return;
+      switch (action) {
+        case "preview":
+          previewExercise(article, exercise);
+          break;
+        case "validate":
+          validateExercise(article, exercise);
+          break;
+        case "reset":
+          resetExercise(article, exercise);
+          break;
+        case "solution":
+          toggleSolution(article, target);
+          break;
+        case "copy-solution":
+          copySolution(exercise.solution, target);
+          break;
+        default:
+          break;
+      }
+    });
+
+    root.appendChild(article);
+    previewExercise(article, exercise);
+  });
+}
 
 function escapeHtml(str) {
   return str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
+    .replace(/>/g, "&gt;");
 }
 
-function buildPreviewDocument(markup) {
+function buildPreviewDocument(code) {
   return `<!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aper&ccedil;u</title>
+    <title>Pr&eacute;visualisation</title>
     <style>
-      :root { color-scheme: light dark; }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: system-ui, sans-serif;
-        background: #f9fafb;
-        color: #0f172a;
-        line-height: 1.6;
-        padding: 1.25rem;
-      }
-      .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        margin: -1px;
-        clip: rect(0,0,0,0);
-        overflow: hidden;
-      }
-      .skip-link {
-        position: absolute;
-        top: 0.25rem;
-        left: 0.25rem;
-        padding: 0.4rem 0.75rem;
-        background: #2563eb;
-        color: #fff;
-        text-decoration: none;
-        border-radius: 0.5rem;
-      }
-      .skip-link:not(:focus) {
-        transform: translateY(-150%);
-      }
-      a:focus {
-        outline: 3px solid #2563eb;
-        outline-offset: 2px;
-      }
+      :root { font-family: "Inter", system-ui, sans-serif; color: #0f172a; }
+      body { margin: 1.5rem; background: #f8fafc; line-height: 1.6; }
+      a { color: #1d4ed8; }
+      .skip-link { position: absolute; left: -999px; }
+      .skip-link:focus { left: 1rem; top: 1rem; background: #fde68a; padding: 0.5rem 1rem; }
+      nav ul { list-style: none; padding: 0; display: flex; gap: 1rem; }
+      nav a { text-decoration: none; }
+      .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; border: 0; padding: 0; clip: rect(0 0 0 0); overflow: hidden; }
+      button:focus, a:focus, input:focus { outline: 2px solid #2563eb; outline-offset: 2px; }
     </style>
   </head>
-  <body>${markup}</body>
+  <body>
+    ${code}
+  </body>
 </html>`;
 }
 
-function renderExercises() {
-  const container = document.getElementById("exercises-container");
-  if (!container) return;
+function previewExercise(article, exercise) {
+  const iframe = article.querySelector("iframe");
+  const textarea = article.querySelector("textarea");
+  if (!iframe || !textarea) return;
+  iframe.setAttribute("srcdoc", buildPreviewDocument(textarea.value));
+}
 
-  exercises.forEach((exercise) => {
-    const card = document.createElement("article");
-    card.className = "exercise-card";
+function validateExercise(article, exercise) {
+  const textarea = article.querySelector("textarea");
+  const feedback = article.querySelector(".exercise__feedback");
+  if (!textarea || !feedback) return;
+  let success = false;
+  try {
+    success = Boolean(exercise.validator?.(textarea.value));
+  } catch (error) {
+    success = false;
+  }
+  feedback.dataset.state = success ? "success" : "error";
+  feedback.innerHTML = success ? exercise.success : exercise.failure;
+  feedback.style.display = "block";
+}
 
-    const title = document.createElement("h3");
-    title.innerHTML = exercise.title;
-    card.appendChild(title);
-
-    const meta = document.createElement("p");
-    meta.innerHTML = `<strong>Niveau :</strong> ${exercise.level} &mdash; <strong>Focus :</strong> ${exercise.focus}`;
-    card.appendChild(meta);
-
-    const context = document.createElement("p");
-    context.innerHTML = exercise.context;
-    card.appendChild(context);
-
-    const goal = document.createElement("p");
-    goal.innerHTML = `<strong>Objectif :</strong> ${exercise.goal}`;
-    card.appendChild(goal);
-
-    if (exercise.steps?.length) {
-      const stepsList = document.createElement("ol");
-      stepsList.className = "exercise-steps";
-      exercise.steps.forEach((step) => {
-        const stepItem = document.createElement("li");
-        const stepTitle = document.createElement("strong");
-        stepTitle.innerHTML = step.title;
-        stepItem.appendChild(stepTitle);
-
-        if (step.description) {
-          const stepDescription = document.createElement("p");
-          stepDescription.innerHTML = step.description;
-          stepItem.appendChild(stepDescription);
-        }
-
-        stepsList.appendChild(stepItem);
-      });
-      card.appendChild(stepsList);
-    }
-
-    const starter = document.createElement("details");
-    starter.innerHTML = `<summary>Voir le code initial</summary><pre><code>${escapeHtml(
-      exercise.starterCode
-    )}</code></pre>`;
-    card.appendChild(starter);
-
-    const editor = document.createElement("div");
-    editor.className = "exercise-editor";
-
-    const textarea = document.createElement("textarea");
+function resetExercise(article, exercise) {
+  const textarea = article.querySelector("textarea");
+  const feedback = article.querySelector(".exercise__feedback");
+  if (textarea) {
     textarea.value = exercise.starterCode;
-    textarea.setAttribute("aria-label", `Zone de correction pour ${exercise.title.replace(/<[^>]+>/g, "")}`);
+  }
+  if (feedback) {
+    feedback.style.display = "none";
+    feedback.textContent = "";
+  }
+  previewExercise(article, exercise);
+}
 
-    const preview = document.createElement("div");
-    preview.className = "exercise-preview";
+function toggleSolution(article, button) {
+  const details = article.querySelector("details.exercise__solution");
+  if (!details) return;
+  const isOpen = details.hasAttribute("open");
+  if (isOpen) {
+    details.removeAttribute("open");
+    button.innerHTML = "Afficher le corrig&eacute;";
+  } else {
+    details.setAttribute("open", "open");
+    button.innerHTML = "Masquer le corrig&eacute;";
+  }
+}
 
-    const previewHeader = document.createElement("header");
-    previewHeader.innerHTML = "Aper&ccedil;u accessible";
+function copySolution(solution, trigger) {
+  const text = solution.replace(/<br\s*\/>/g, "\n");
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      trigger.textContent = "Copi? !";
+      setTimeout(() => {
+        trigger.textContent = "Copier le corrig?";
+      }, 2000);
+    })
+    .catch(() => {
+      trigger.textContent = "Copie impossible";
+    });
+}
 
-    const iframe = document.createElement("iframe");
-    iframe.className = "exercise-iframe";
-    iframe.setAttribute("title", `Apercu du code pour ${exercise.title.replace(/<[^>]+>/g, "")}`);
-    iframe.srcdoc = buildPreviewDocument(exercise.starterCode);
+function renderQuiz(root) {
+  quizQuestions.forEach((quiz) => {
+    const block = document.createElement("section");
+    block.className = "quiz-block";
+    block.innerHTML = `
+      <header>
+        <h3>${quiz.question}</h3>
+        <p class="tag">${quiz.category}</p>
+      </header>
+      <form>
+        <fieldset>
+          <legend class="visually-hidden">${quiz.question}</legend>
+          <div class="quiz-options">
+            ${quiz.options
+              .map(
+                (option, index) => `
+                  <label>
+                    <input
+                      type="radio"
+                      name="quiz-${quiz.id}"
+                      value="${index}"
+                      required
+                    />
+                    <span>${option.label}</span>
+                  </label>
+                `
+              )
+              .join("")}
+          </div>
+        </fieldset>
+        <button type="submit" class="btn btn--surface">V&eacute;rifier</button>
+      </form>
+      <div class="quiz-feedback" role="status" aria-live="polite"></div>
+    `;
 
-    preview.append(previewHeader, iframe);
-    editor.append(textarea, preview);
-    card.appendChild(editor);
-
-    const actions = document.createElement("div");
-    actions.className = "exercise-actions";
-
-    const checkButton = document.createElement("button");
-    checkButton.type = "button";
-    checkButton.className = "btn btn--primary";
-    checkButton.textContent = "Valider";
-
-    const runButton = document.createElement("button");
-    runButton.type = "button";
-    runButton.className = "btn btn--tertiary";
-    runButton.innerHTML = "Ex&eacute;cuter le code";
-
-    const resetButton = document.createElement("button");
-    resetButton.type = "button";
-    resetButton.className = "btn btn--secondary";
-    resetButton.innerHTML = "R&eacute;initialiser";
-
-    const solutionButton = document.createElement("button");
-    solutionButton.type = "button";
-    solutionButton.className = "btn btn--secondary";
-    solutionButton.innerHTML = "Afficher le corrig&eacute;";
-
-    actions.append(checkButton, runButton, resetButton, solutionButton);
-    card.appendChild(actions);
-
-    const feedback = document.createElement("div");
-    feedback.className = "exercise-feedback";
-    feedback.setAttribute("aria-live", "polite");
-    card.appendChild(feedback);
-
-    const solution = document.createElement("div");
-    solution.className = "solution";
-    solution.innerHTML = `<strong>Corrig&eacute; propos&eacute; :</strong><pre><code>${escapeHtml(
-      exercise.solution
-    )}</code></pre>`;
-    card.appendChild(solution);
-
-    checkButton.addEventListener("click", () => {
-      const isValid = exercise.validator(textarea.value);
-      if (isValid) {
-        feedback.innerHTML = exercise.success;
-        feedback.classList.remove("error");
-        feedback.classList.add("success");
-      } else {
-        feedback.innerHTML = exercise.failure;
-        feedback.classList.remove("success");
-        feedback.classList.add("error");
+    const form = block.querySelector("form");
+    const feedback = block.querySelector(".quiz-feedback");
+    form?.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      const selected = formData.get(`quiz-${quiz.id}`);
+      if (selected === null) return;
+      const option = quiz.options[Number(selected)];
+      const isCorrect = option?.correct ?? false;
+      if (feedback) {
+        feedback.dataset.state = isCorrect ? "success" : "error";
+        feedback.style.display = "block";
+        feedback.innerHTML = `${isCorrect ? "Bonne r&eacute;ponse&nbsp;!" : "R&eacute;ponse incorrecte."} ${quiz.explanation}`;
       }
     });
 
-    runButton.addEventListener("click", () => {
-      iframe.srcdoc = buildPreviewDocument(textarea.value);
-      feedback.innerHTML = "Aper&ccedil;u mis &agrave; jour. Testez la navigation clavier et le contraste.";
-      feedback.classList.remove("error");
-      feedback.classList.add("success");
-    });
-
-    resetButton.addEventListener("click", () => {
-      textarea.value = exercise.starterCode;
-      iframe.srcdoc = buildPreviewDocument(exercise.starterCode);
-      feedback.innerHTML = "";
-      feedback.classList.remove("success", "error");
-      solution.style.display = "none";
-      solutionButton.innerHTML = "Afficher le corrig&eacute;";
-    });
-
-    solutionButton.addEventListener("click", () => {
-      const open = solution.style.display === "block";
-      solution.style.display = open ? "none" : "block";
-      solutionButton.innerHTML = open ? "Afficher le corrig&eacute;" : "Masquer le corrig&eacute;";
-      if (!open) {
-        iframe.srcdoc = buildPreviewDocument(exercise.solution);
-      }
-    });
-
-    container.appendChild(card);
+    root.appendChild(block);
   });
 }
 
-function renderQuiz() {
-  const container = document.getElementById("quiz-container");
-  if (!container) return;
-
-  quizQuestions.forEach((question) => {
-    const fieldset = document.createElement("fieldset");
-    fieldset.className = "quiz-card";
-
-    const legend = document.createElement("legend");
-    legend.innerHTML = question.question;
-    fieldset.appendChild(legend);
-
-    question.answers.forEach((answer) => {
-      const label = document.createElement("label");
-      label.setAttribute("for", `${question.id}-${answer.value}`);
-
-      const input = document.createElement("input");
-      input.type = "radio";
-      input.name = question.id;
-      input.id = `${question.id}-${answer.value}`;
-      input.value = answer.value;
-
-      const span = document.createElement("span");
-      span.innerHTML = answer.label;
-
-      label.append(input, span);
-      fieldset.appendChild(label);
-    });
-
-    const feedback = document.createElement("div");
-    feedback.className = "quiz-feedback";
-    feedback.setAttribute("aria-live", "polite");
-    fieldset.appendChild(feedback);
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "btn btn--primary";
-    button.innerHTML = "V&eacute;rifier";
-    fieldset.appendChild(button);
-
-    button.addEventListener("click", () => {
-      const selected = fieldset.querySelector(`input[name="${question.id}"]:checked`);
-      if (!selected) {
-        feedback.innerHTML = "S&eacute;lectionnez une r&eacute;ponse avant de valider.";
-        feedback.classList.remove("success");
-        feedback.classList.add("error");
-        return;
-      }
-
-      const chosen = question.answers.find((answer) => answer.value === selected.value);
-      if (chosen?.correct) {
-        feedback.innerHTML = `Bonne r&eacute;ponse&nbsp;! ${question.explanation}`;
-        feedback.classList.remove("error");
-        feedback.classList.add("success");
-      } else {
-        feedback.innerHTML = `Ce n'est pas exact. ${question.explanation}`;
-        feedback.classList.remove("success");
-        feedback.classList.add("error");
-      }
-    });
-
-    container.appendChild(fieldset);
-  });
-}
-
-function renderFlashcards() {
-  const container = document.getElementById("flashcards-list");
-  if (!container) return;
-
+function renderFlashcards(root) {
   flashcards.forEach((card) => {
-    const article = document.createElement("article");
-    article.className = "flashcard-item";
+    const container = document.createElement("article");
+    container.className = "flashcard";
+    container.tabIndex = 0;
+    container.innerHTML = `
+      <span class="tag">${card.tag}</span>
+      <div class="flashcard__label">${card.front}</div>
+      <div class="flashcard__answer" hidden>${card.back}</div>
+    `;
 
-    const title = document.createElement("h4");
-    title.innerHTML = card.term;
-    article.appendChild(title);
+    const answer = container.querySelector(".flashcard__answer");
+    const label = container.querySelector(".flashcard__label");
 
-    const when = document.createElement("p");
-    when.innerHTML = `<strong>&Agrave; utiliser :</strong> ${card.when}`;
-    article.appendChild(when);
+    const toggle = () => {
+      if (!answer || !label) return;
+      const isHidden = answer.hasAttribute("hidden");
+      if (isHidden) {
+        answer.removeAttribute("hidden");
+        label.setAttribute("aria-hidden", "true");
+      } else {
+        answer.setAttribute("hidden", "hidden");
+        label.removeAttribute("aria-hidden");
+      }
+    };
 
-    const avoid = document.createElement("p");
-    avoid.innerHTML = `<strong>&Agrave; &eacute;viter :</strong> ${card.avoid}`;
-    article.appendChild(avoid);
+    container.addEventListener("click", toggle);
+    container.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggle();
+      }
+    });
 
-    const tip = document.createElement("p");
-    tip.innerHTML = `<strong>Astuce :</strong> ${card.tip}`;
-    article.appendChild(tip);
-
-    container.appendChild(article);
+    root.appendChild(container);
   });
 }
 
-function renderInterviewQA() {
-  const container = document.getElementById("interview-qa");
-  if (!container) return;
-
-  interviewQA.forEach((item) => {
+function renderInterview(root) {
+  interviewQuestions.forEach((item) => {
     const card = document.createElement("article");
-    card.className = "qa-card";
-
-    const title = document.createElement("h3");
-    title.innerHTML = item.question;
-    card.appendChild(title);
-
-    const answer = document.createElement("p");
-    answer.innerHTML = `<strong>R&eacute;ponse structur&eacute;e :</strong> ${item.answer}`;
-    card.appendChild(answer);
-
-    if (item.bullets?.length) {
-      const intro = document.createElement("p");
-      intro.innerHTML = "<strong>Points cl&eacute;s &agrave; couvrir :</strong>";
-      card.appendChild(intro);
-
-      const list = document.createElement("ul");
-      item.bullets.forEach((bullet) => {
-        const li = document.createElement("li");
-        li.innerHTML = bullet;
-        list.appendChild(li);
-      });
-      card.appendChild(list);
-    }
-
-    container.appendChild(card);
+    card.className = "qa-item";
+    card.innerHTML = `
+      <p class="tag">${item.focus}</p>
+      <h3>${item.title}</h3>
+      <p>${item.answer}</p>
+    `;
+    root.appendChild(card);
   });
-}
-
-function setupAuditForm() {
-  const form = document.getElementById("audit-form");
-  const feedback = document.getElementById("audit-feedback");
-  if (!form || !feedback) return;
-
-  const expected = new Set(["contrast", "label", "focus", "carrousel"]);
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const formData = new FormData(form);
-    const selected = new Set(formData.getAll("audit"));
-
-    if (selected.size === 0) {
-      feedback.innerHTML = "Cochez au moins une non-conformit&eacute; d&eacute;tect&eacute;e.";
-      feedback.className = "feedback error";
-      return;
-    }
-
-    const isExact = selected.size === expected.size && [...selected].every((value) => expected.has(value));
-
-    if (isExact) {
-      feedback.innerHTML = "Bravo, vous avez identifi&eacute; l'ensemble des &eacute;carts critiques (contraste, labels, focus, carrousel).";
-      feedback.className = "feedback success";
-    } else {
-      feedback.innerHTML = "Revoyez vos priorit&eacute;s&nbsp;: contraste, labels, focus et contr&ocirc;le des carrousels restent essentiels.";
-      feedback.className = "feedback error";
-    }
-  });
-}
-
-function updateFooterDate() {
-  const span = document.getElementById("last-update");
-  if (!span) return;
-  const formatter = new Intl.DateTimeFormat("fr-FR", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-  span.textContent = formatter.format(new Date());
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderExercises();
-  renderQuiz();
-  renderFlashcards();
-  renderInterviewQA();
-  setupAuditForm();
-  updateFooterDate();
+  updateLastUpdate();
+
+  const exercisesRoot = document.getElementById("exercises-container");
+  if (exercisesRoot) {
+    renderExercises(exercisesRoot);
+  }
+
+  const quizRoot = document.getElementById("quiz-container");
+  if (quizRoot) {
+    renderQuiz(quizRoot);
+  }
+
+  const flashcardsRoot = document.getElementById("flashcards-list");
+  if (flashcardsRoot) {
+    renderFlashcards(flashcardsRoot);
+  }
+
+  const interviewRoot = document.getElementById("interview-qa");
+  if (interviewRoot) {
+    renderInterview(interviewRoot);
+  }
 });
