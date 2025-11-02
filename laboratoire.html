@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laboratoire interactif &mdash; Acad&eacute;mie RGAA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header class="sub-hero" role="banner">
+      <div class="container sub-hero__content">
+        <p class="sub-hero__breadcrumbs">
+          <a href="index.html">Accueil</a> &rsaquo; Laboratoire interactif
+        </p>
+        <h1>Laboratoire de correction RGAA</h1>
+        <p>
+          Manipulez des extraits de code pour corriger les probl&egrave;mes RGAA. Chaque exercice fournit un contexte, des objectifs, une validation automatique, une pr&eacute;visualisation et un corrig&eacute; complet.
+        </p>
+        <nav class="sub-nav" aria-label="Navigation du laboratoire">
+          <ul>
+            <li><a href="#mode-emploi">Mode d&rsquo;emploi</a></li>
+            <li><a href="#exercices">Exercices</a></li>
+            <li><a href="#ressources">Raccourcis &amp; ressources</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section id="mode-emploi" class="content-section">
+        <div class="container">
+          <h2>Mode d&rsquo;emploi</h2>
+          <div class="two-column">
+            <article>
+              <h3>Comment proc&eacute;der</h3>
+              <ol>
+                <li>Lire le contexte et les objectifs.</li>
+                <li>Modifier le code dans la zone &eacute;ditable.</li>
+                <li>Utiliser <strong>Pr&eacute;visualiser</strong> pour v&eacute;rifier le rendu dans l&rsquo;iframe.</li>
+                <li>Cliquez sur <strong>Valider</strong> pour ex&eacute;cuter la validation automatique.</li>
+                <li>Consultez le corrig&eacute; pour comparer et comprendre les pratiques recommand&eacute;es.</li>
+              </ol>
+            </article>
+            <article>
+              <h3>Raccourcis clavier</h3>
+              <ul>
+                <li><kbd>Ctrl</kbd> + <kbd>Enter</kbd> &mdash; lancer la validation.</li>
+                <li><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd> &mdash; pr&eacute;visualiser.</li>
+                <li><kbd>Ctrl</kbd> + <kbd>Backspace</kbd> &mdash; r&eacute;initialiser le code.</li>
+              </ul>
+              <p class="tag">Astuce</p>
+              <p>Testez la navigation clavier dans l&rsquo;iframe de pr&eacute;visualisation pour v&eacute;rifier vos correctifs.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="exercices" class="content-section">
+        <div class="container">
+          <h2>Exercices interactifs</h2>
+          <p>
+            Exercices disponibles&nbsp;: s&eacute;mantique HTML pas &agrave; pas, formulaires avec erreurs, onglets ARIA, menu m&eacute;ga, gestion des annonces live, FocusMonitor sur Angular. D&rsquo;autres exercices peuvent &ecirc;tre ajout&eacute;s via <code>app.js</code>.
+          </p>
+          <div id="exercises-container" class="exercise-list"></div>
+        </div>
+      </section>
+
+      <section id="ressources" class="content-section">
+        <div class="container">
+          <h2>Ressources rapides</h2>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <h3>Checklist correction</h3>
+              <ul>
+                <li>Landmarks pr&eacute;sents &amp; uniques.</li>
+                <li>Ordre de tabulation logique.</li>
+                <li>Focus visible &amp; coh&eacute;rent.</li>
+                <li>Messages d&rsquo;erreur li&eacute;s au champ.</li>
+              </ul>
+            </article>
+            <article class="resource-card">
+              <h3>Guides &agrave; consulter</h3>
+              <p><a href="cours-aria.html">Guide complet ARIA</a></p>
+              <p><a href="cours-angular.html">Cours Angular accessible</a></p>
+              <p><a href="quiz.html">Quiz &amp; flashcards</a></p>
+            </article>
+            <article class="resource-card">
+              <h3>Exporter vos r&eacute;sultats</h3>
+              <p>Utilisez l&rsquo;outil de copie rapide situ&eacute; sous chaque corrig&eacute; pour conserver vos solutions.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__content">
+        <p>Acad&eacute;mie RGAA &mdash; Laboratoire interactif.</p>
+        <p>Mise &agrave; jour : <span id="last-update"></span> &bull; <a href="index.html">Retour &agrave; l&rsquo;accueil</a></p>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

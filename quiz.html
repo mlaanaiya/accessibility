@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz &amp; certification &mdash; Acad&eacute;mie RGAA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header class="sub-hero" role="banner">
+      <div class="container sub-hero__content">
+        <p class="sub-hero__breadcrumbs">
+          <a href="index.html">Accueil</a> &rsaquo; Quiz &amp; certification
+        </p>
+        <h1>Quiz, flashcards &amp; pr&eacute;paration entretien</h1>
+        <p>
+          &Eacute;valuez vos connaissances RGAA, ARIA et Angular, puis consolidez-les avec des flashcards contextuelles et une banque de questions/r&eacute;ponses d&rsquo;entretien technique.
+        </p>
+        <nav class="sub-nav" aria-label="Navigation des quiz">
+          <ul>
+            <li><a href="#quiz">Quiz interactifs</a></li>
+            <li><a href="#flashcards">Flashcards</a></li>
+            <li><a href="#entretien">Entretien technique</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section id="quiz" class="content-section">
+        <div class="container">
+          <h2>Quiz interactifs</h2>
+          <p>
+            Chaque question fournit une explication r&eacute;f&eacute;rence RGAA/WCAG apr&egrave;s validation. Utilisez le bouton <strong>V&eacute;rifier</strong> pour afficher le feedback. L&rsquo;historique de vos bonnes r&eacute;ponses est affich&eacute; sous le quiz.
+          </p>
+          <div id="quiz-container" class="quiz-list"></div>
+        </div>
+      </section>
+
+      <section id="flashcards" class="content-section">
+        <div class="container">
+          <h2>Flashcards &laquo;&nbsp;Quand utiliser&nbsp;?&nbsp;&raquo;</h2>
+          <p>
+            R&eacute;visez les attributs ARIA, les r&ocirc;les, les obligations RGAA et les bonnes pratiques en retournant les cartes. Cliquez sur chaque carte pour afficher la r&eacute;ponse.
+          </p>
+          <div id="flashcards-list" class="flashcards"></div>
+        </div>
+      </section>
+
+      <section id="entretien" class="content-section">
+        <div class="container">
+          <h2>Pr&eacute;paration &agrave; l&rsquo;entretien technique</h2>
+          <p>
+            Utilisez ces questions/r&eacute;ponses structur&eacute;es (niveau junior &agrave; expert) pour pr&eacute;parer vos discussions avec recruteurs, clients ou auditeurs RGAA.
+          </p>
+          <div id="interview-qa" class="qa-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__content">
+        <p>Acad&eacute;mie RGAA &mdash; Quiz &amp; certification.</p>
+        <p>Mise &agrave; jour : <span id="last-update"></span> &bull; <a href="index.html">Retour &agrave; l&rsquo;accueil</a></p>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

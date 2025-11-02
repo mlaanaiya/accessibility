@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guide ARIA complet &mdash; Acad&eacute;mie RGAA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header class="sub-hero" role="banner">
+      <div class="container sub-hero__content">
+        <p class="sub-hero__breadcrumbs">
+          <a href="index.html">Accueil</a> &rsaquo; Guide ARIA complet
+        </p>
+        <h1>ARIA en profondeur &mdash; Guide op&eacute;rationnel</h1>
+        <p>
+          Comprenez quand utiliser ARIA, comment d&eacute;clarer les r&ocirc;les, &eacute;tats et propri&eacute;t&eacute;s, et comment garantir une exp&eacute;rience clavier/lecteur d&rsquo;&eacute;cran conforme au RGAA et aux WCAG.
+        </p>
+        <nav class="sub-nav" aria-label="Navigation du guide">
+          <ul>
+            <li><a href="#principes">Principes ARIA</a></li>
+            <li><a href="#landmarks">Landmarks</a></li>
+            <li><a href="#structure">Structure documentaire</a></li>
+            <li><a href="#widgets">Widgets &amp; clavier</a></li>
+            <li><a href="#live">Live regions</a></li>
+            <li><a href="#etats">&Eacute;tats et propri&eacute;t&eacute;s</a></li>
+            <li><a href="#tests">Tests et diagnostics</a></li>
+            <li><a href="#ressources">Ressources</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section id="principes" class="content-section">
+        <div class="container">
+          <h2>Principes incontournables</h2>
+          <div class="guide-callout">
+            <p><strong>R&egrave;gle d&rsquo;or&nbsp;:</strong> <em>&laquo;&nbsp;N&rsquo;utilisez pas ARIA si vous pouvez faire autrement.&nbsp;&raquo;</em> Une balise native avec une s&eacute;mantique correcte restera toujours plus fiable qu&rsquo;un r&ocirc;le ARIA appliqu&eacute; sur une balise neutre.</p>
+            <ul>
+              <li>ARIA ne change pas le comportement du navigateur, mais fournit une information compl&eacute;mentaire aux technologies d&rsquo;assistance.</li>
+              <li>Respectez la structure hi&eacute;rarchique des r&ocirc;les&nbsp;: certains sont parents/enfants.</li>
+              <li>Tout r&ocirc;le interactif personnalis&eacute; doit s&rsquo;accompagner d&rsquo;une gestion clavier coh&eacute;rente.</li>
+              <li>Les attributs ARIA doivent &ecirc;tre synchronis&eacute;s en temps r&eacute;el avec l&rsquo;&eacute;tat visuel du widget.</li>
+            </ul>
+          </div>
+          <div class="info-grid">
+            <article>
+              <h3>Diff&eacute;rences ARIA / HTML</h3>
+              <p>Les &eacute;l&eacute;ments HTML ont une s&eacute;mantique implicite. Ajouter un r&ocirc;le explicite sur une balise qui poss&egrave;de d&eacute;j&agrave; un r&ocirc;le peut poser des probl&egrave;mes. Utilisez les attributs ARIA pour compl&eacute;ter, pas pour remplacer.</p>
+            </article>
+            <article>
+              <h3>Quand utiliser un r&ocirc;le</h3>
+              <ul>
+                <li>Pour d&eacute;crire un composant personnalis&eacute; (ex.&nbsp;: <code>div</code> transform&eacute;e en bouton).</li>
+                <li>Pour baliser une zone logique (landmark) lorsqu&rsquo;aucune balise native n&rsquo;est disponible.</li>
+                <li>Pour pr&eacute;ciser une relation (ex.&nbsp;: <code>aria-labelledby</code>).</li>
+              </ul>
+            </article>
+            <article>
+              <h3>Anti-patterns courants</h3>
+              <ul>
+                <li>Ajouter <code>role="button"</code> sans g&eacute;rer <kbd>Enter</kbd> et <kbd>Space</kbd>.</li>
+                <li>Empiler les r&ocirc;les (ex.&nbsp;: <code>role="navigation"</code> sur un <code>nav</code>).</li>
+                <li>Utiliser <code>aria-hidden="true"</code> sur un &eacute;l&eacute;ment focusable.</li>
+                <li>Masquer du texte visuel sans alternative pour lecteur d&rsquo;&eacute;cran.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="landmarks" class="content-section">
+        <div class="container">
+          <h2>Landmarks ARIA</h2>
+          <p>Les landmarks facilitent la navigation rapide des utilisateurs de lecteurs d&rsquo;&eacute;cran. Utilisez les balises HTML5 natifs en priorit&eacute; (ex.&nbsp;: <code>header</code>, <code>main</code>, <code>nav</code>, <code>aside</code>, <code>footer</code>).</p>
+          <table>
+            <caption>Landmarks essentiels</caption>
+            <thead>
+              <tr>
+                <th scope="col">R&ocirc;le</th>
+                <th scope="col">Quand l&rsquo;utiliser</th>
+                <th scope="col">Bonnes pratiques</th>
+                <th scope="col">Exemple</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>banner</code></td>
+                <td>En-t&ecirc;te principal du site, unique par page.</td>
+                <td>Utiliser <code>&lt;header&gt;</code> au niveau racine.</td>
+                <td><code>&lt;header role="banner"&gt;...&lt;/header&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>navigation</code></td>
+                <td>Menu principal ou secondaire r&eacute;p&eacute;t&eacute;.</td>
+                <td>Pr&eacute;ciser un libell&eacute; avec <code>aria-label</code>.</td>
+                <td><code>&lt;nav aria-label="Navigation principale"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>main</code></td>
+                <td>Contenu principal unique.</td>
+                <td>Un seul <code>&lt;main&gt;</code> ou <code>role="main"</code> par page.</td>
+                <td><code>&lt;main id="contenu" role="main"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>complementary</code></td>
+                <td>Contenu secondaire li&eacute; au principal (ex.&nbsp;: encadr&eacute;).</td>
+                <td>Ne pas dupliquer le contenu principal.</td>
+                <td><code>&lt;aside role="complementary" aria-label="Sommaire"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>contentinfo</code></td>
+                <td>Pied de page global du site.</td>
+                <td>Disponible via <code>&lt;footer&gt;</code> sur la page.</td>
+                <td><code>&lt;footer role="contentinfo"&gt;</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="structure" class="content-section">
+        <div class="container">
+          <h2>Structure documentaire et relations</h2>
+          <div class="two-column">
+            <article>
+              <h3>Hi&eacute;rarchie de titres</h3>
+              <ul>
+                <li>Un seul <code>&lt;h1&gt;</code> par page.</li>
+                <li>Progression logique <code>h2</code> &rarr; <code>h3</code> sans sauts injustifi&eacute;s.</li>
+                <li>Les titres de sections doivent pr&eacute;c&eacute;der les contenus correspondants.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>Relations ARIA</h3>
+              <ul>
+                <li><code>aria-labelledby</code> pour lier un titre &agrave; un widget ou une section.</li>
+                <li><code>aria-describedby</code> pour fournir une aide suppl&eacute;mentaire.</li>
+                <li><code>aria-controls</code> pour indiquer la cible d&rsquo;une action (toggle, tab).</li>
+              </ul>
+            </article>
+          </div>
+          <pre><code>&lt;section aria-labelledby=&quot;faq-title&quot;&gt;
+  &lt;h2 id=&quot;faq-title&quot;&gt;Questions fr&eacute;quentes&lt;/h2&gt;
+  &lt;p id=&quot;faq-help&quot;&gt;Utilisez les fl&egrave;ches pour naviguer entre les questions.&lt;/p&gt;
+  &lt;ul role=&quot;listbox&quot; aria-describedby=&quot;faq-help&quot;&gt;
+    &lt;li role=&quot;option&quot; aria-selected=&quot;true&quot;&gt;Pourquoi d&eacute;ployer un DOA ?&lt;/li&gt;
+    &lt;li role=&quot;option&quot;&gt;Comment tester un lecteur d&rsquo;&eacute;cran ?&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</code></pre>
+        </div>
+      </section>
+
+      <section id="widgets" class="content-section">
+        <div class="container">
+          <h2>Widgets ARIA &amp; interactions clavier</h2>
+          <p>Chaque widget personnalis&eacute; doit reproduire les interactions natives. Le tableau ci-dessous synth&eacute;tise les comportements requis.</p>
+          <table>
+            <caption>Widgets interactifs</caption>
+            <thead>
+              <tr>
+                <th scope="col">Pattern</th>
+                <th scope="col">R&ocirc;les &amp; attributs</th>
+                <th scope="col">Interactions clavier</th>
+                <th scope="col">Points RGAA</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Onglets</td>
+                <td><code>role="tablist"</code>, <code>role="tab"</code>, <code>aria-controls</code>, <code>aria-selected</code>.</td>
+                <td>
+                  <ul>
+                    <li><kbd>Tab</kbd> circule entre l&rsquo;ensemble.</li>
+                    <li><kbd>Fl&egrave;che droite/gauche</kbd> change d&rsquo;onglet.</li>
+                    <li><kbd>Home/End</kbd> aller au premier/dernier.</li>
+                  </ul>
+                </td>
+                <td>Crit&egrave;res RGAA 9.2, 9.3, 7.3.</td>
+              </tr>
+              <tr>
+                <td>Accord&eacute;on</td>
+                <td><code>role="button"</code>, <code>aria-expanded</code>, <code>aria-controls</code>, panel avec <code>role="region"</code>.</td>
+                <td>
+                  <ul>
+                    <li><kbd>Enter</kbd>/<kbd>Space</kbd> ouvre/ferme.</li>
+                    <li><kbd>Tab</kbd> circule, <kbd>Shift+Tab</kbd> permet retour.</li>
+                  </ul>
+                </td>
+                <td>Crit&egrave;res 7.1, 7.3, 13.3.</td>
+              </tr>
+              <tr>
+                <td>Menu</td>
+                <td><code>role="menubar"</code>, <code>role="menuitem"</code>, <code>aria-haspopup</code>, <code>aria-expanded</code>.</td>
+                <td>
+                  <ul>
+                    <li><kbd>Alt</kbd> + <kbd>M</kbd> pour focus (si raccourci).</li>
+                    <li><kbd>Fl&egrave;ches</kbd> se d&eacute;placer, <kbd>Enter</kbd> active.</li>
+                    <li><kbd>Esc</kbd> ferme le menu.</li>
+                  </ul>
+                </td>
+                <td>Crit&egrave;res 7.4, 8.2, 9.3.</td>
+              </tr>
+              <tr>
+                <td>Dialog modal</td>
+                <td><code>role="dialog"</code> ou <code>alertdialog</code>, <code>aria-modal="true"</code>, focus trap, <code>aria-labelledby</code>.</td>
+                <td>
+                  <ul>
+                    <li>Focus sur le premier &eacute;l&eacute;ment interactif.</li>
+                    <li><kbd>Esc</kbd> ferme, focus retour sur l&rsquo;appelant.</li>
+                  </ul>
+                </td>
+                <td>Crit&egrave;res 11.5, 11.6, 7.3.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="live" class="content-section">
+        <div class="container">
+          <h2>Live regions</h2>
+          <p>Les live regions annoncent automatiquement des changements de contenu. Choisissez le niveau d&rsquo;annonce en fonction de la criticit&eacute;.</p>
+          <table>
+            <caption>Types de live regions</caption>
+            <thead>
+              <tr>
+                <th scope="col">Attribut</th>
+                <th scope="col">Usage</th>
+                <th scope="col">Exemple</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>aria-live="polite"</code></td>
+                <td>Notifications non critiques (t&acirc;ches termin&eacute;es, messages info).</td>
+                <td><code>&lt;div aria-live="polite"&gt;Profil mis &agrave; jour.&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>aria-live="assertive"</code></td>
+                <td>Alertes prioritaires (erreurs bloquantes, sessions expir&eacute;es).</td>
+                <td><code>&lt;div role="alert"&gt;Votre session a expir&eacute;.&lt;/div&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>aria-live="off"</code></td>
+                <td>D&eacute;sactiver l&rsquo;annonce (par d&eacute;faut).</td>
+                <td><code>&lt;div aria-live="off"&gt;...&lt;/div&gt;</code></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="guide-callout">
+            <p><strong>Bonnes pratiques :</strong></p>
+            <ul>
+              <li>Positionnez la live region dans le DOM avant le script qui la met &agrave; jour.</li>
+              <li>Utilisez <code>aria-atomic="true"</code> pour annoncer le bloc entier.</li>
+              <li>Ne surchargez pas les utilisateurs avec trop d&rsquo;annonces.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="etats" class="content-section">
+        <div class="container">
+          <h2>&Eacute;tats et propri&eacute;t&eacute;s ARIA</h2>
+          <p>Les &eacute;tats (<code>aria-checked</code>, <code>aria-expanded</code>, etc.) et les propri&eacute;t&eacute;s (<code>aria-haspopup</code>, <code>aria-controls</code>) doivent refl&eacute;ter l&rsquo;&eacute;tat visuel du composant. Ils sont indispensables pour certains widgets.</p>
+          <table>
+            <caption>R&eacute;capitulatif des attributs critiques</caption>
+            <thead>
+              <tr>
+                <th scope="col">Attribut</th>
+                <th scope="col">Quand l&rsquo;utiliser</th>
+                <th scope="col">Valeurs valides</th>
+                <th scope="col">Exemple</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>aria-expanded</code></td>
+                <td>Accord&eacute;ons, menus, widgets d&eacute;pliables.</td>
+                <td><code>true</code>, <code>false</code>, <code>undefined</code>.</td>
+                <td><code>&lt;button aria-expanded="false" aria-controls="faq1"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>aria-pressed</code></td>
+                <td>Boutons toggle, boutons radio personnalis&eacute;s.</td>
+                <td><code>true</code>, <code>false</code>, <code>mixed</code>.</td>
+                <td><code>&lt;button role="button" aria-pressed="mixed"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>aria-invalid</code></td>
+                <td>Champs de formulaire en erreur.</td>
+                <td><code>true</code>, <code>false</code>, <code>grammar</code>, <code>spelling</code>.</td>
+                <td><code>&lt;input aria-invalid="true" aria-describedby="email-erreur"&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>aria-current</code></td>
+                <td>&Eacute;l&eacute;ment actif dans une navigation ou un listing.</td>
+                <td><code>page</code>, <code>step</code>, <code>true</code>, etc.</td>
+                <td><code>&lt;li aria-current="page"&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;</code></td>
+              </tr>
+              <tr>
+                <td><code>aria-describedby</code></td>
+                <td>Associer une aide contextuelle, un message d&rsquo;erreur.</td>
+                <td>Identifiant d&rsquo;un ou plusieurs &eacute;l&eacute;ments.</td>
+                <td><code>&lt;input aria-describedby="hint-contraste"&gt;</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tests" class="content-section">
+        <div class="container">
+          <h2>Tests et diagnostics</h2>
+          <div class="two-column">
+            <article>
+              <h3>M&eacute;thodes manuelles</h3>
+              <ul>
+                <li>Tester au clavier&nbsp;: ordre logique, absence de pi&egrave;ge, focus visible.</li>
+                <li>Utiliser NVDA (Windows) ou VoiceOver (macOS) pour v&eacute;rifier l&rsquo;annonce des r&ocirc;les/&eacute;tats.</li>
+                <li>V&eacute;rifier les relations <code>aria-labelledby</code> et <code>aria-describedby</code>.</li>
+              </ul>
+            </article>
+            <article>
+              <h3>Tests automatis&eacute;s</h3>
+              <ul>
+                <li><strong>axe DevTools</strong> ou <strong>aXe-core</strong> pour int&eacute;grer dans Cypress/Jest.</li>
+                <li><strong>Pa11y CI</strong>, <strong>Lighthouse CI</strong> pour pipeline.</li>
+                <li>Linting avec <code>@angular-eslint</code>, <code>eslint-plugin-jsx-a11y</code>.</li>
+              </ul>
+            </article>
+          </div>
+          <div class="guide-callout">
+            <p><strong>Checklist rapide :</strong></p>
+            <ul>
+              <li>Les r&ocirc;les correspondent-ils &agrave; la fonction du composant&nbsp;?</li>
+              <li>Les attributs <code>aria-*</code> sont-ils mis &agrave; jour dynamiquement&nbsp;?</li>
+              <li>La navigation au clavier est-elle intuitive et document&eacute;e&nbsp;?</li>
+              <li>Les erreurs sont-elles restitu&eacute;es via <code>aria-live</code> ou <code>role="alert"</code>&nbsp;?</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="ressources" class="content-section">
+        <div class="container">
+          <h2>Ressources compl&eacute;mentaires</h2>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <h3>ARIA Authoring Practices</h3>
+              <p>Guide officiel avec patrons clavier et exemples de code.</p>
+              <a href="https://www.w3.org/WAI/ARIA/apg/" rel="noreferrer" target="_blank">Consulter</a>
+            </article>
+            <article class="resource-card">
+              <h3>Mapping ARIA &amp; HTML</h3>
+              <p>Tableau des r&ocirc;les implicites et explicites, utile pour v&eacute;rifier les redondances.</p>
+              <a href="https://www.w3.org/TR/html-aria/" rel="noreferrer" target="_blank">Explorer</a>
+            </article>
+            <article class="resource-card">
+              <h3>RGAA &mdash; Th&egrave;me 7</h3>
+              <p>D&eacute;tails des crit&egrave;res li&eacute;s aux composants riches, tests et techniques d&rsquo;&eacute;valuation.</p>
+              <a href="https://accessibilite.numerique.gouv.fr/" rel="noreferrer" target="_blank">Lire</a>
+            </article>
+            <article class="resource-card">
+              <h3>Checklist ARIA interne</h3>
+              <p>Mod&egrave;le &agrave; personnaliser pour vos revues de code et audits.</p>
+              <a href="laboratoire.html">Utiliser</a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__content">
+        <p>Acad&eacute;mie RGAA &mdash; Guide ARIA complet.</p>
+        <p>Mise &agrave; jour : <span id="last-update"></span> &bull; <a href="index.html">Retour &agrave; l&rsquo;accueil</a></p>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
