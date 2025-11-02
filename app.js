@@ -3,24 +3,24 @@ const exercises = [
     id: "exercice-semantique",
     title: "S&eacute;mantique HTML &mdash; mise en page pas &agrave; pas",
     level: "Fondamentaux",
-    focus: "Structure s&eacute;mantique ? landmarks RGAA",
+    focus: "Structure s&eacute;mantique &middot; landmarks RGAA",
     context:
       "Une page de destination est compos&eacute;e uniquement de <div> sans rep&egrave;res s&eacute;mantiques ni navigation clavier structur&eacute;e.",
     goal:
       "Ajouter progressivement une structure s&eacute;mantique compl&egrave;te (landmarks, titres, navigation et contenu principal).",
     steps: [
       {
-        title: "&Eacute;tape 1 ? Landmarks",
+        title: "&Eacute;tape 1 &middot; Landmarks",
         description:
           "Remplacez les <code>&lt;div&gt;</code> g&eacute;n&eacute;riques par les balises structurelles <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> et <code>&lt;footer&gt;</code>."
       },
       {
-        title: "&Eacute;tape 2 ? Titres et hi&eacute;rarchie",
+        title: "&Eacute;tape 2 &middot; Titres et hi&eacute;rarchie",
         description:
           "Assurez-vous que la page contient un <code>&lt;h1&gt;</code> unique et que les sections logiques sont introduites par des titres structur&eacute;s."
       },
       {
-        title: "&Eacute;tape 3 ? Navigation accessible",
+        title: "&Eacute;tape 3 &middot; Navigation accessible",
         description:
           "Ajoutez un lien d'&eacute;vitement et un libell&eacute; accessible sur la navigation (par exemple <code>aria-label=&quot;Navigation principale&quot;</code>)."
       }
@@ -287,6 +287,180 @@ const exercises = [
     validator: (code) => {
       const str = code.toLowerCase();
       return str.includes("skip-link") && str.includes("aria-label") && str.includes("main id=");
+    },
+  },
+  {
+    id: "exercice-aria-tabs",
+    title: "Onglets ARIA &mdash; structure compl&egrave;te",
+    level: "Avanc&eacute;",
+    focus: "ARIA &middot; Patrons tablist",
+    context:
+      "Un ensemble d'onglets est construit avec des boutons sans informations d'association. Les lecteurs d'&eacute;cran ne comprennent pas la relation onglet/panneau.",
+    goal:
+      "Ajouter les r&ocirc;les requis (<code>tablist</code>, <code>tab</code>, <code>tabpanel</code>) et relier les onglets &agrave; leurs panneaux.",
+    starterCode: `<div class="tabs">
+  <div class="tabs-buttons">
+    <button data-panel="panel-1">Mission</button>
+    <button data-panel="panel-2">Offre</button>
+  </div>
+  <div class="tabs-panels">
+    <section id="panel-1">Notre mission est de rendre le web accessible.</section>
+    <section id="panel-2">D&eacute;couvrez nos offres d'accompagnement RGAA.</section>
+  </div>
+</div>`,
+    solution: `<div class="tabs" role="tablist" aria-label="Navigation principale">
+  <button role="tab" id="tab-1" aria-controls="panel-1" aria-selected="true">Mission</button>
+  <button role="tab" id="tab-2" aria-controls="panel-2" aria-selected="false">Offre</button>
+  <div>
+    <section role="tabpanel" id="panel-1" aria-labelledby="tab-1">Notre mission est de rendre le web accessible.</section>
+    <section role="tabpanel" id="panel-2" aria-labelledby="tab-2" hidden>D&eacute;couvrez nos offres d'accompagnement RGAA.</section>
+  </div>
+</div>`,
+    success:
+      "Super : la liste d'onglets est correctement annonc&eacute;e et chaque panneau est associ&eacute; &agrave; son onglet.",
+    failure:
+      "Assurez-vous d'ajouter <code>role=&quot;tablist&quot;</code>, <code>role=&quot;tab&quot;</code>, <code>role=&quot;tabpanel&quot;</code> ainsi que les attributs <code>aria-controls</code> et <code>aria-labelledby</code>.",
+    validator: (code) => {
+      const str = code.toLowerCase();
+      return (
+        str.includes("role=\"tablist\"") &&
+        str.includes("role=\"tab\"") &&
+        str.includes("role=\"tabpanel\"") &&
+        str.includes("aria-controls") &&
+        str.includes("aria-labelledby")
+      );
+    },
+  },
+  {
+    id: "exercice-aria-menu",
+    title: "Bouton menu &amp; sous-menu ARIA",
+    level: "Avanc&eacute;",
+    focus: "ARIA &middot; Menus contextuels",
+    context:
+      "Un bouton ouvre un sous-menu visuel mais les aides techniques ne savent pas qu'un menu est disponible.",
+    goal:
+      "Ajoutez les r&ocirc;les de menu, d&eacute;clarez l'ouverture du sous-menu et assurez la navigation clavier.",
+    starterCode: `<div class="actions">
+  <button class="menu-button">Actions</button>
+  <div class="menu">
+    <a href="#">Dupliquer</a>
+    <a href="#">Archiver</a>
+  </div>
+</div>`,
+    solution: `<div class="actions">
+  <button
+    class="menu-button"
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-controls="actions-menu"
+  >Actions</button>
+  <ul id="actions-menu" role="menu" hidden>
+    <li role="none"><a role="menuitem" href="#">Dupliquer</a></li>
+    <li role="none"><a role="menuitem" href="#">Archiver</a></li>
+  </ul>
+</div>`,
+    success:
+      "Parfait : le bouton expose un menu conforme et les items sont annonc&eacute;s correctement.",
+    failure:
+      "Ajoutez <code>aria-haspopup</code>, <code>aria-expanded</code>, un identifiant contr&ocirc;l&eacute; et les r&ocirc;les <code>menu</code>/<code>menuitem</code>.",
+    validator: (code) => {
+      const str = code.toLowerCase();
+      return (
+        str.includes("aria-haspopup") &&
+        str.includes("aria-expanded") &&
+        str.includes("aria-controls") &&
+        str.includes("role=\"menu\"") &&
+        str.includes("role=\"menuitem\"")
+      );
+    },
+  },
+  {
+    id: "exercice-live-form",
+    title: "Formulaire &mdash; erreurs annonc&eacute;es dynamiquement",
+    level: "Avanc&eacute;",
+    focus: "Th&egrave;me 11 &middot; Feedback",
+    context:
+      "Un formulaire Angular affiche un message d'erreur mais celui-ci n'est pas annonc&eacute;.",
+    goal:
+      "Reliez le message d'erreur au champ et exposez l'information via un role appropri&eacute;.",
+    starterCode: `<label for="username">Nom d'utilisateur</label>
+<input id="username" type="text" required>
+<p class="error">Ce champ est obligatoire.</p>`,
+    solution: `<label for="username">Nom d'utilisateur</label>
+<input id="username" type="text" aria-describedby="username-error" aria-invalid="true" required>
+<p id="username-error" class="error" role="alert">Ce champ est obligatoire.</p>`,
+    success:
+      "Excellent : le message d'erreur est reli&eacute; au champ et annonc&eacute; comme alerte.",
+    failure:
+      "Ajoutez <code>aria-describedby</code>, <code>aria-invalid</code> et un <code>role=&quot;alert&quot;</code> sur le message.",
+    validator: (code) => {
+      const str = code.toLowerCase();
+      return (
+        str.includes("aria-describedby") &&
+        str.includes("aria-invalid") &&
+        str.includes("role=\"alert\"")
+      );
+    },
+  },
+  {
+    id: "exercice-angular-focus",
+    title: "Angular &mdash; gestion du focus sur un composant dynamiquement ajout&eacute;",
+    level: "Expert",
+    focus: "Angular &middot; CDK FocusMonitor",
+    context:
+      "Un composant personnalis&eacute; doit recevoir le focus lorsqu'il est affich&eacute; mais aucune logique n'est pr&eacute;vue.",
+    goal:
+      "Utilisez le <code>FocusMonitor</code> du CDK pour placer le focus et nettoyer l'abonnement.",
+    starterCode: `import { Component, ElementRef } from '@angular/core';
+
+@Component({
+  selector: 'app-confirmation-banner',
+  template: `
+    <div class="banner">
+      <p>Profil mis &agrave; jour.</p>
+      <button>Fermer</button>
+    </div>
+  `,
+})
+export class ConfirmationBannerComponent {
+  constructor(private host: ElementRef) {}
+
+  ngAfterViewInit(): void {
+    // TODO focus
+  }
+}
+`,
+    solution: `import { Component, ElementRef } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+
+@Component({
+  selector: 'app-confirmation-banner',
+  template: `
+    <div class="banner" tabindex="-1">
+      <p>Profil mis &agrave; jour.</p>
+      <button>Fermer</button>
+    </div>
+  `,
+})
+export class ConfirmationBannerComponent {
+  constructor(private focusMonitor: FocusMonitor, private host: ElementRef) {}
+
+  ngAfterViewInit(): void {
+    this.focusMonitor.focusVia(this.host.nativeElement.querySelector('.banner'), 'program');
+  }
+
+  ngOnDestroy(): void {
+    this.focusMonitor.stopMonitoring(this.host.nativeElement.querySelector('.banner'));
+  }
+}
+`,
+    success:
+      "Bien vu : le focus est g&eacute;r&eacute; par le CDK et lib&eacute;r&eacute; lors de la destruction du composant.",
+    failure:
+      "Importez <code>FocusMonitor</code>, appelez <code>focusVia</code> dans <code>ngAfterViewInit</code> et arr&ecirc;tez la surveillance dans <code>ngOnDestroy</code>.",
+    validator: (code) => {
+      const str = code.toLowerCase();
+      return str.includes("focusmonitor") && str.includes("focusvia") && str.includes("ngondestroy");
     },
   },
 ];

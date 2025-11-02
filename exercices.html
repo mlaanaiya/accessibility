@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laboratoire d&rsquo;exercices &mdash; Acad&eacute;mie RGAA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header class="sub-hero" role="banner">
+      <div class="container sub-hero__content">
+        <p class="sub-hero__breadcrumbs">
+          <a href="index.html">Accueil</a> &rsaquo; Laboratoire d&rsquo;exercices
+        </p>
+        <h1>Laboratoire d&rsquo;exercices interactifs</h1>
+        <p>
+          Corrigez des extraits de code HTML, ARIA et Angular pour atteindre la conformit&eacute; RGAA. Chaque exercice propose un contexte, des objectifs, une validation automatique et des corrig&eacute;s.
+        </p>
+        <nav class="sub-nav" aria-label="Navigation de la page">
+          <ul>
+            <li><a href="#contenu">Exercices interactifs</a></li>
+            <li><a href="#mode-d-emploi">Mode d&rsquo;emploi</a></li>
+            <li><a href="#ressources-exercices">Ressources utiles</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section id="mode-d-emploi" class="content-section">
+        <div class="container">
+          <h2>Mode d&rsquo;emploi</h2>
+          <ul>
+            <li>Chaque carte pr&eacute;cise le niveau, le focus RGAA/ARIA et la validation attendue.</li>
+            <li>R&eacute;digez votre correction dans la zone de code puis cliquez sur <strong>Ex&eacute;cuter</strong> pour visualiser le rendu.</li>
+            <li>Utilisez <strong>Valider</strong> pour contr&ocirc;ler automatiquement les points essentiels.</li>
+            <li>Consultez le corrig&eacute; pour comparer votre solution et comprendre les bonnes pratiques.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="content-section">
+        <div class="container">
+          <h2>Exercices interactifs</h2>
+          <p>
+            Les exercices couvrent la structure s&eacute;mantique, les formulaires, les tableaux, les composants dynamiques ARIA et l&rsquo;int&eacute;gration Angular accessible. Ajoutez vos propres tests en naviguant au clavier dans la pr&eacute;visualisation.
+          </p>
+          <div id="exercises-container" class="exercises"></div>
+        </div>
+      </section>
+
+      <section id="ressources-exercices" class="content-section">
+        <div class="container">
+          <h2>Ressources pour aller plus loin</h2>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <h3>Checklist de revue</h3>
+              <ul>
+                <li>Contraste et focus visible.</li>
+                <li>Structure des titres logique.</li>
+                <li>Navigation clavier sans pi&egrave;ge.</li>
+                <li>Messages annonc&eacute;s via ARIA.</li>
+              </ul>
+            </article>
+            <article class="resource-card">
+              <h3>Guides recommand&eacute;s</h3>
+              <p><a href="aria-guide.html">Guide ARIA complet</a></p>
+              <p><a href="angular-accessibilite.html">Angular &amp; accessibilit&eacute;</a></p>
+              <p><a href="index.html#themes">Synth&egrave;se des crit&egrave;res RGAA</a></p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__content">
+        <p>Acad&eacute;mie RGAA &mdash; Laboratoire d&rsquo;exercices.</p>
+        <p>Derni&egrave;re mise &agrave; jour : <span id="last-update"></span> &bull; <a href="index.html">Retour &agrave; l'accueil</a></p>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>

@@ -509,6 +509,166 @@ code {
   font-size: 0.95rem;
 }
 
+.guide-callout {
+  background: rgba(15, 118, 110, 0.12);
+  border-left: 4px solid var(--color-accent);
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--radius-sm);
+  margin: 1.5rem 0;
+}
+
+.content-section {
+  padding: clamp(3.5rem, 6vw, 4.75rem) 0;
+}
+
+.content-section h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.9rem, 3vw, 2.4rem);
+  margin-bottom: 1.2rem;
+}
+
+.content-section h3 {
+  font-family: var(--font-heading);
+  margin-top: 2.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.content-section p {
+  max-width: 75ch;
+  color: var(--color-muted);
+}
+
+.content-section ul,
+.content-section ol {
+  color: var(--color-muted);
+  max-width: 75ch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-sm);
+  margin: 1.75rem 0;
+  overflow: hidden;
+}
+
+table caption {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  background: rgba(37, 99, 235, 0.08);
+}
+
+table th,
+table td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  vertical-align: top;
+}
+
+table th {
+  background: rgba(37, 99, 235, 0.08);
+  font-weight: 600;
+}
+
+table tr:last-child td {
+  border-bottom: none;
+}
+
+.sub-hero {
+  background: linear-gradient(135deg, var(--color-hero-from) 0%, var(--color-hero-to) 100%);
+  color: #f8fafc;
+  padding: clamp(3.5rem, 6vw, 4.5rem) 0 clamp(2.5rem, 5vw, 3.5rem);
+  position: relative;
+}
+
+.sub-hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.sub-hero__breadcrumbs {
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
+  color: rgba(226, 232, 240, 0.75);
+}
+
+.sub-hero h1 {
+  margin: 0 0 1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 4.5vw, 3.1rem);
+}
+
+.sub-hero p {
+  margin: 0;
+  max-width: 70ch;
+  color: rgba(226, 232, 240, 0.85);
+}
+
+.sub-nav {
+  margin-top: 2rem;
+}
+
+.sub-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0;
+  margin: 0;
+}
+
+.sub-nav a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(226, 232, 240, 0.35);
+  color: #e2e8f0;
+  text-decoration: none;
+  transition: border-color 0.2s ease;
+}
+
+.sub-nav a:hover,
+.sub-nav a:focus-visible {
+  border-color: #fff;
+  text-decoration: underline;
+}
+
+.resource-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.resource-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+
+.resource-card h3 {
+  margin-top: 0;
+  font-family: var(--font-heading);
+}
+
+.resource-card p {
+  color: var(--color-muted);
+}
+
+.resource-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
 .exercise-card textarea:focus-visible {
   outline: 3px solid rgba(96, 165, 250, 0.55);
   outline-offset: 2px;
@@ -710,7 +870,7 @@ code {
 }
 
 .resource-list a::after {
-  content: "?";
+  content: "\2197";
   font-size: 0.85rem;
 }
 

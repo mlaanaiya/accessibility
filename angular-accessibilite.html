@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Angular &amp; Accessibilit&eacute; &mdash; Acad&eacute;mie RGAA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header class="sub-hero" role="banner">
+      <div class="container sub-hero__content">
+        <p class="sub-hero__breadcrumbs">
+          <a href="index.html">Accueil</a> &rsaquo; Angular &amp; accessibilit&eacute;
+        </p>
+        <h1>Angular accessible &mdash; conception, outils et pipeline</h1>
+        <p>
+          Construisez des applications Angular inclusives en combinant bonnes pratiques de conception, composantisation accessible et tests automatis&eacute;s.
+        </p>
+        <nav class="sub-nav" aria-label="Navigation de la page">
+          <ul>
+            <li><a href="#architecture">Architecture accessible</a></li>
+            <li><a href="#templates">Templates &amp; composants</a></li>
+            <li><a href="#material">Angular Material &amp; CDK</a></li>
+            <li><a href="#tests-angular">Tests &amp; CI/CD</a></li>
+            <li><a href="#checklists">Checklists &amp; ressources</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section id="architecture" class="content-section">
+        <div class="container">
+          <h2>Architecture accessible d&egrave;s la conception</h2>
+          <p>
+            Angular permet de structurer l&rsquo;application autour de composants autonomes, d&rsquo;un routage ma&icirc;tris&eacute; et d&rsquo;un cycle de d&eacute;ploiement industriel. Int&eacute;grer l&rsquo;accessibilit&eacute; d&egrave;s la conception r&eacute;duit drastiquement la dette a11y.
+          </p>
+          <ul>
+            <li><strong>Structure modulaire :</strong> adopter les <em>standalone components</em> et modules fonctionnels pour isoler les responsabilit&eacute;s et r&eacute;utiliser les patrons accessibles.</li>
+            <li><strong>Routage :</strong> d&eacute;finir des titres de page dynamiques (service <code>Title</code>), g&eacute;rer le retour en haut de page (<code>ViewportScroller</code>), annoncer les changements de route (<code>LiveAnnouncer</code>).</li>
+            <li><strong>Gestion d&rsquo;&eacute;tat :</strong> pr&eacute;f&eacute;rer un store observable (signals, RxJS) qui facilite la synchronisation des messages accessibles.</li>
+            <li><strong>Performance :</strong> le <em>change detection</em> optimis&eacute; (OnPush, signal-based) r&eacute;duit les re-rendus superflus et offre une exp&eacute;rience fluide.</li>
+          </ul>
+          <div class="guide-callout" role="note">
+            <p><strong>Objectif :</strong> chaque fonctionnalit&eacute; Angular doit disposer d&rsquo;un contrat accessibilit&eacute; (focus, annonces dynamiques, navigation clavier).</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="templates" class="content-section">
+        <div class="container">
+          <h2>Templates &amp; composants accessibles</h2>
+          <p>
+            Les templates Angular doivent conserver la s&eacute;mantique HTML et relier les attributs ARIA aux donn&eacute;es dynamiques. Utilisez les directives du CDK pour hi&eacute;rarchiser le focus et annoncer les changements.
+          </p>
+          <h3>Gestion du focus</h3>
+          <pre><code>&lt;button cdkFocusInitial (click)=&quot;openDialog()&quot;&gt;
+  Cr&eacute;er un compte
+&lt;/button&gt;
+
+&lt;div
+  cdkTrapFocus
+  cdkTrapFocusAutoCapture
+  class=&quot;dialog&quot;
+  role=&quot;dialog&quot;
+  aria-modal=&quot;true&quot;
+  aria-labelledby=&quot;dialog-title&quot;
+&gt;
+  &lt;h2 id=&quot;dialog-title&quot;&gt;Confirmation&lt;/h2&gt;
+  &lt;p&gt;Votre profil a &eacute;t&eacute; mis &agrave; jour.&lt;/p&gt;
+  &lt;button (click)=&quot;close()&quot; cdkFocusInitial&gt;Fermer&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+          <ul>
+            <li><code>cdkFocusInitial</code> d&eacute;finit le focus initial &agrave; l&rsquo;ouverture.</li>
+            <li><code>cdkTrapFocus</code> emp&ecirc;che le focus de sortir du dialogue tant qu&rsquo;il est actif.</li>
+            <li><code>aria-modal</code>, <code>aria-labelledby</code> et un bouton de fermeture clavier garantissent l&rsquo;utilisabilit&eacute;.</li>
+          </ul>
+
+          <h3>Annonces dynamiques</h3>
+          <pre><code>import { Component } from &apos;@angular/core&apos;;
+import { LiveAnnouncer } from &apos;@angular/cdk/a11y&apos;;
+
+@Component({
+  selector: &apos;app-notifications&apos;,
+  template: `
+    &lt;button (click)=&quot;notify()&quot;&gt;Ajouter au panier&lt;/button&gt;
+    &lt;p aria-live=&quot;polite&quot;&gt;{{ message }}&lt;/p&gt;
+  `,
+})
+export class NotificationsComponent {
+  message = &apos;&apos;;
+  constructor(private liveAnnouncer: LiveAnnouncer) {}
+
+  notify(): void {
+    this.message = &apos;Produit ajout&eacute; au panier.&apos;;
+    this.liveAnnouncer.announce(this.message, &apos;polite&apos;);
+  }
+}</code></pre>
+          <p>Le <code>LiveAnnouncer</code> synchronise le feedback vocal tout en laissant le message visible.</p>
+
+          <h3>Formulaires r&eacute;actifs</h3>
+          <pre><code>&lt;form [formGroup]=&quot;profileForm&quot; novalidate&gt;
+  &lt;label for=&quot;email&quot;&gt;Adresse e-mail&lt;/label&gt;
+  &lt;input
+    id=&quot;email&quot;
+    type=&quot;email&quot;
+    formControlName=&quot;email&quot;
+    aria-describedby=&quot;email-help email-error&quot;
+    [attr.aria-invalid]=&quot;email.invalid &#38;&amp;#38; email.touched&quot;
+  /&gt;
+  &lt;span id=&quot;email-help&quot;&gt;Format attendu : prenom.nom@domaine.fr&lt;/span&gt;
+  &lt;span id=&quot;email-error&quot; *ngIf=&quot;email.errors&quot; role=&quot;alert&quot;&gt;
+    Adresse invalide
+  &lt;/span&gt;
+&lt;/form&gt;</code></pre>
+          <p>Associez syst&eacute;matiquement aides et erreurs via <code>aria-describedby</code> et <code>role=&quot;alert&quot;</code>.</p>
+        </div>
+      </section>
+
+      <section id="material" class="content-section">
+        <div class="container">
+          <h2>Angular Material &amp; CDK : personnalisation accessible</h2>
+          <p>
+            Angular Material repose sur le CDK (Component Dev Kit) qui fournit des primitives accessibilit&eacute;. Personnalisez votre design system sans perdre les garanties a11y.
+          </p>
+          <ul>
+            <li><strong>Th&egrave;mes :</strong> contr&ocirc;lez les contrastes via les tokens <code>mat.define-light-theme</code> et <code>mat.define-dark-theme</code>.</li>
+            <li><strong>Tableaux :</strong> ajoutez <code>scope</code>, <code>aria-sort</code> et un r&eacute;sum&eacute; via <code>&lt;caption&gt;</code>.</li>
+            <li><strong>Snackbars &amp; dialogues :</strong> combinez <code>MatSnackBar</code> avec <code>LiveAnnouncer</code> et <code>MatDialog</code> avec <code>FocusTrap</code>.</li>
+            <li><strong>CDK A11y :</strong> <code>FocusMonitor</code>, <code>ListKeyManager</code> et <code>ActiveDescendantKeyManager</code> facilitent la gestion des interactions clavier complexes.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="tests-angular" class="content-section">
+        <div class="container">
+          <h2>Tests, CI/CD et surveillance continue</h2>
+          <p>
+            Automatisez les v&eacute;rifications accessibilit&eacute; &agrave; chaque &eacute;tape du pipeline Angular pour d&eacute;tecter rapidement les r&eacute;gressions.
+          </p>
+          <ul>
+            <li><strong>Unitaires :</strong> Jasmine/Karma + <code>axe-core</code>, snapshot des attributs ARIA.</li>
+            <li><strong>End-to-end :</strong> Cypress + <code>cypress-axe</code> ou Playwright + <code>@axe-core/playwright</code>.</li>
+            <li><strong>CI/CD :</strong> GitHub Actions ou GitLab CI avec job d&eacute;di&eacute; (<code>npm run lint -- --config .eslintrc-a11y.json</code>, <code>npm run test:a11y</code>).</li>
+            <li><strong>Monitoring :</strong> Lighthouse CI, Pa11y, Purple HATS pour suivre les r&eacute;gressions apr&egrave;s d&eacute;ploiement.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="checklists" class="content-section">
+        <div class="container">
+          <h2>Checklists &amp; ressources</h2>
+          <div class="resource-grid">
+            <article class="resource-card">
+              <h3>Checklist &laquo; feature &raquo;</h3>
+              <ul>
+                <li>Arborescence de titres correcte (<code>h1</code> unique).</li>
+                <li>Composants interactifs utilisables au clavier et annonc&eacute;s.</li>
+                <li>Focus visible, pi&egrave;ge de focus impossible.</li>
+                <li>Messages d&rsquo;erreur reli&eacute;s aux champs et annonc&eacute;s.</li>
+              </ul>
+            </article>
+            <article class="resource-card">
+              <h3>Ressources utiles</h3>
+              <p>Documentation officielle Angular, Angular Material, CDK A11y.</p>
+              <a href="https://angular.dev" target="_blank" rel="noopener noreferrer">angular.dev &nearr;</a>
+              <a href="https://material.angular.io/cdk/a11y/overview" target="_blank" rel="noopener noreferrer">CDK A11y &nearr;</a>
+            </article>
+            <article class="resource-card">
+              <h3>Exercices dirig&eacute;s</h3>
+              <p>Pratiquez sur des cas concrets : menus, onglets, formulaires r&eacute;actifs, dialogues.</p>
+              <a href="exercices.html">Acc&eacute;der au laboratoire &nearr;</a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__content">
+        <p>Acad&eacute;mie RGAA &mdash; Angular &amp; accessibilit&eacute;.</p>
+        <p>Derni&egrave;re mise &agrave; jour : <span id="last-update"></span> &bull; <a href="index.html">Retour &agrave; l'accueil</a></p>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
