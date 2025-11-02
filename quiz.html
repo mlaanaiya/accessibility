@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz &amp; certification ? Acad?mie RGAA</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header class="sub-hero" role="banner">
+      <div class="container sub-hero__content">
+        <p class="sub-hero__breadcrumbs">
+          <a href="index.html">Accueil</a> &rsaquo; Quiz &amp; certification
+        </p>
+        <h1>Quiz de validation &amp; pr?paration entretien</h1>
+        <p>
+          ?valuez vos connaissances RGAA, ARIA et Angular. Les quiz fournissent des explications d?taill?es, tandis que les flashcards et fiches d?entretien vous aident ? consolider vos acquis.
+        </p>
+        <nav class="sub-nav" aria-label="Navigation de la page">
+          <ul>
+            <li><a href="#quiz">Quiz interactifs</a></li>
+            <li><a href="#flashcards">Flashcards</a></li>
+            <li><a href="#entretien">Pr?paration entretien</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu">
+      <section id="quiz" class="content-section">
+        <div class="container">
+          <h2>Quiz interactifs</h2>
+          <p>
+            R?pondez aux questions puis cliquez sur <strong>V?rifier</strong> pour obtenir un feedback imm?diat. Les explications d?taillent les r?f?rences RGAA/WCAG ? conna?tre.
+          </p>
+          <div id="quiz-container" class="quiz"></div>
+        </div>
+      </section>
+
+      <section id="flashcards" class="content-section">
+        <div class="container">
+          <h2>Flashcards ?&nbsp;Quand utiliser&nbsp;?&nbsp;?</h2>
+          <p>
+            R?visez les attributs ARIA, landmarks et bonnes pratiques ? l?aide de ces fiches synth?tiques.
+          </p>
+          <div class="flashcards" aria-live="polite">
+            <div id="flashcards-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="entretien" class="content-section">
+        <div class="container">
+          <h2>Pr?paration ? l?entretien technique</h2>
+          <p>
+            Utilisez ces questions/r?ponses structur?es pour pr?parer vos ?changes avec recruteurs, clients ou auditeurs RGAA.
+          </p>
+          <div id="interview-qa" class="qa-grid"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="container footer__content">
+        <p>Acad?mie RGAA ? Quiz &amp; certification.</p>
+        <p>Derni&egrave;re mise &agrave; jour : <span id="last-update"></span> &bull; <a href="index.html">Retour ? l?accueil</a></p>
+      </div>
+    </footer>
+
+    <script src="app.js" defer></script>
+  </body>
+</html>
