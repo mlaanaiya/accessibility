@@ -3,25 +3,34 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plateforme RGAA - Cours et Pratiques Compl?tes</title>
+    <title>Acad&eacute;mie RGAA &mdash; Parcours complet accessibilit&eacute;</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
     <header class="hero" role="banner">
-      <div class="container">
-        <h1>Plateforme compl?te pour ma?triser le RGAA</h1>
-        <p>
-          Approfondissez vos connaissances, entra?nez-vous sur des cas concrets,
-          validez vos comp?tences et pr?parez vos entretiens techniques autour de
-          l'accessibilit? num?rique et du RGAA.
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <p class="hero__badge">Parcours certifiant accessibilit&eacute; num&eacute;rique</p>
+        <h1>Ma&icirc;trisez le RGAA de A &agrave; Z</h1>
+        <p class="hero__lead">
+          Cours exhaustif, pratiques dirig&eacute;es, laboratoires de correction, validation
+          automatique et mise en situation d&rsquo;entretien. Tout ce qu&rsquo;il faut pour garantir
+          la conformit&eacute; RGAA et une exp&eacute;rience inclusive.
         </p>
-        <nav aria-label="Navigation principale">
-          <ul class="nav-list">
-            <li><a href="#programme">Parcours de formation</a></li>
-            <li><a href="#pratiques">Pratiques ? ma?triser</a></li>
-            <li><a href="#atelier">Guides et audits</a></li>
-            <li><a href="#exercices">Exercices</a></li>
-            <li><a href="#quiz">Quiz et validations</a></li>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#curriculum">Explorer le cursus</a>
+          <a class="btn btn--ghost" href="#laboratoire">Passer en pratique</a>
+        </div>
+        <nav aria-label="Navigation principale" class="hero__nav">
+          <ul class="hero__nav-list">
+            <li><a href="#curriculum">Cours complet</a></li>
+            <li><a href="#semantique">S&eacute;mantique &amp; ARIA</a></li>
+            <li><a href="#themes">R&eacute;f&eacute;rentiel RGAA</a></li>
+            <li><a href="#patterns">Pratiques pro</a></li>
+            <li><a href="#atelier">Atelier d&rsquo;audit</a></li>
+            <li><a href="#laboratoire">Laboratoire code</a></li>
+            <li><a href="#quiz">Quiz &amp; validation</a></li>
             <li><a href="#entretien">Entretien technique</a></li>
             <li><a href="#ressources">Ressources</a></li>
           </ul>
@@ -29,157 +38,268 @@
       </div>
     </header>
 
-    <main>
-      <section id="programme" class="section">
+    <main id="contenu">
+      <section id="curriculum" class="section">
         <div class="container">
-          <h2>Parcours p?dagogique structur?</h2>
-          <p>
-            Le parcours couvre l'ensemble des exigences du r?f?rentiel RGAA 4.1,
-            des fondamentaux aux tests avanc?s.
-          </p>
-          <div class="cards-grid" role="list">
-            <article class="card" role="listitem">
-              <h3>Module 1 ? Culture accessibilit?</h3>
+          <header class="section__header">
+            <h2>Cursus complet &amp; progression guid&eacute;e</h2>
+            <p>
+              Chaque module est con&ccedil;u pour construire une expertise solide, de la culture
+              accessibilit&eacute; aux strat&eacute;gies d&rsquo;audit et de gouvernance.
+            </p>
+          </header>
+          <div class="timeline" role="list">
+            <article class="timeline__item" role="listitem">
+              <h3>Fondamentaux et cadre l&eacute;gal</h3>
               <ul>
-                <li>Origines l?gales (loi 2005, directive europ?enne, d?cret 2019).</li>
-                <li>D?finition du handicap, inclusion, enjeux ?conomiques.</li>
-                <li>Standards internationaux : WCAG 2.1 AA et mapping RGAA.</li>
-                <li>Cycle de vie accessible et gouvernance (DOA, sch?ma pluriannuel).</li>
+                <li>Loi fran&ccedil;aise 2005, d&eacute;cret 2019, obligations des acteurs publics &amp; priv&eacute;s.</li>
+                <li>Panorama WCAG 2.1, EN 301 549 et mapping avec le RGAA 4.1.</li>
+                <li>Principes POUR (Perceptible, Utilisable, Compr&eacute;hensible, Robuste).</li>
               </ul>
             </article>
-            <article class="card" role="listitem">
-              <h3>Module 2 ? Architecture du RGAA</h3>
+            <article class="timeline__item" role="listitem">
+              <h3>Architecture du r&eacute;f&eacute;rentiel</h3>
               <ul>
-                <li>Structure du r?f?rentiel, th?mes et crit?res.</li>
-                <li>Notions d'exigence, test, r?sultat, d?rogation.</li>
-                <li>Base documentaire : glossaire, cas particuliers, alternatives.</li>
-                <li>Workflow d'audit : p?rim?tre, ?chantillonnage, rapport.</li>
+                <li>Organisation en 13 th&egrave;mes, 106 crit&egrave;res, niveaux de test.</li>
+                <li>Interpr&eacute;tations, cas particuliers, d&eacute;rogations et preuves.</li>
+                <li>Mise en place du dossier d&rsquo;accessibilit&eacute; et de la DOA.</li>
               </ul>
             </article>
-            <article class="card" role="listitem">
-              <h3>Module 3 ? Perception (Th?mes 1 ? 4)</h3>
+            <article class="timeline__item" role="listitem">
+              <h3>S&eacute;mantique, ARIA &amp; design inclusif</h3>
               <ul>
-                <li>Images, m?dias temporels, cadres, couleurs et contrastes.</li>
-                <li>M?thodes pour alternatives textuelles efficaces.</li>
-                <li>Sous-titres, transcriptions et audiodescriptions.</li>
-                <li>Tests contrastes (RGAA 3.2, 3.3) et outils de v?rification.</li>
+                <li>Choix des balises, hi&eacute;rarchie des titres, structures de navigation.</li>
+                <li>Usage raisonn&eacute; d&rsquo;ARIA, r&ocirc;les, &eacute;tats et propri&eacute;t&eacute;s.</li>
+                <li>Conception de contenus, langage clair, gestion de la charge cognitive.</li>
               </ul>
             </article>
-            <article class="card" role="listitem">
-              <h3>Module 4 ? Utilisation au clavier</h3>
+            <article class="timeline__item" role="listitem">
+              <h3>Tests manuels, automatiques et assistifs</h3>
               <ul>
-                <li>Th?mes 5 et 6 : navigation, liens, scripts, ?l?ments obligatoires.</li>
-                <li>Gestion du focus, ordre logique, pi?ges clavier.</li>
-                <li>Niveaux de priorit?, erreurs fr?quentes c?t? d?veloppement.</li>
-                <li>Bonnes pratiques ARIA pour interactions riches.</li>
+                <li>Plan de test, constitution d&rsquo;&eacute;chantillons et suivi des tickets.</li>
+                <li>Utilisation de NVDA, VoiceOver, lecteurs braille, zoom.</li>
+                <li>Int&eacute;gration d&rsquo;axe-core, pa11y, ESLint a11y dans la CI/CD.</li>
               </ul>
             </article>
-            <article class="card" role="listitem">
-              <h3>Module 5 ? Compr?hension</h3>
+            <article class="timeline__item" role="listitem">
+              <h3>Audit, pilotage et gouvernance</h3>
               <ul>
-                <li>Th?mes 7 ? 11 : structuration, tableaux, formulaires, navigation.</li>
-                <li>R?daction accessible et langage clair.</li>
-                <li>Gestion des erreurs et aides contextuelles.</li>
-                <li>Patrons de conception accessibles.</li>
-              </ul>
-            </article>
-            <article class="card" role="listitem">
-              <h3>Module 6 ? Compatibilit? et conformit?</h3>
-              <ul>
-                <li>Th?mes 12 et 13 : scripts, composants riches, navigation.</li>
-                <li>Tests assistifs : lecteurs d'?cran, zoom, contrastes ?lev?s.</li>
-                <li>Strat?gie de tests automatis?s et manuels.</li>
-                <li>Cl?ture, d?claration d'accessibilit?, plan d'action.</li>
+                <li>Proc&eacute;dure compl&egrave;te d&rsquo;audit RGAA, grille de cotation, scoring.</li>
+                <li>R&eacute;daction de d&eacute;claration d&rsquo;accessibilit&eacute; et plans pluriannuels.</li>
+                <li>Strat&eacute;gies de formation, responsabilisation des parties prenantes.</li>
               </ul>
             </article>
           </div>
         </div>
       </section>
 
-      <section id="pratiques" class="section alt">
+      <section id="semantique" class="section section--accent">
         <div class="container">
-          <h2>Pratiques RGAA essentielles et quand les appliquer</h2>
-          <div class="practices-grid">
-            <article>
-              <h3>Alternatives textuelles</h3>
+          <header class="section__header">
+            <h2>Cours magistral : S&eacute;mantique HTML &amp; API ARIA</h2>
+            <p>
+              Comprenez en profondeur comment la s&eacute;mantique et ARIA structurent
+              l&rsquo;exp&eacute;rience utilisateur pour les aides techniques et la navigation clavier.
+            </p>
+          </header>
+          <div class="module-grid">
+            <article class="module-card">
+              <h3>Hi&eacute;rarchie &amp; structures</h3>
               <p>
-                Utilisez des attributs <code>alt</code>, des descriptions d?taill?es et
-                des transcriptions d?s qu'un m?dia n'est pas purement d?coratif.
+                &Eacute;tablissez un squelette accessible : un <code>&lt;h1&gt;</code> unique, titres
+                cons&eacute;cutifs, landmarks (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>,
+                <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>), listes s&eacute;mantiques et citations.
               </p>
-              <dl>
-                <dt>? appliquer</dt>
-                <dd>Images informatives, boutons ic?nes, graphiques de donn?es.</dd>
-                <dt>? proscrire</dt>
-                <dd>
-                  Duplication de texte d?j? visible, descriptions vagues (&laquo;&nbsp;image&nbsp;&raquo;).
-                </dd>
-              </dl>
+              <ul>
+                <li>Guides de r&eacute;&eacute;criture pour documents Word/PDF vers HTML accessible.</li>
+                <li>Grille de v&eacute;rification pour &eacute;valuer la logique des documents.</li>
+              </ul>
             </article>
-            <article>
-              <h3>Couleurs et contrastes</h3>
+            <article class="module-card">
+              <h3>Formulaires &amp; messages</h3>
               <p>
-                Garantissez un rapport de contraste de 4.5:1 pour le texte normal et
-                3:1 pour les titres ou composants UI critiques.
+                Associez <code>&lt;label&gt;</code>, <code>aria-describedby</code>, validation en direct et
+                feedback non intrusif (<code>role="status"</code>, <code>role="alert"</code>).
               </p>
-              <dl>
-                <dt>? appliquer</dt>
-                <dd>Tester avec des outils comme Colour Contrast Analyser.</dd>
-                <dt>? proscrire</dt>
-                <dd>
-                  Communiquer uniquement par la couleur, oublier les ?tats de focus.
-                </dd>
-              </dl>
+              <ul>
+                <li>Patrons pour champs complexes (date, IBAN, upload, mot de passe).</li>
+                <li>Gestion des erreurs de lot et du double focus.</li>
+              </ul>
             </article>
-            <article>
-              <h3>Structure s?mantique</h3>
-              <p>
-                Respectez la hi?rarchie des titres, utilisez listes et tableaux
-                s?mantiques pour renforcer la compr?hension logique.
-              </p>
-              <dl>
-                <dt>? appliquer</dt>
-                <dd>Un seul <code>h1</code> par page, sections balis?es, r?les natifs.</dd>
-                <dt>? proscrire</dt>
-                <dd>Remplacer des balises par des <code>div</code> pour le style.</dd>
-              </dl>
-            </article>
-            <article>
-              <h3>Navigation clavier</h3>
-              <p>
-                Assurez la tabulation logique, rendez visibles les focus, ?vitez les
-                pi?ges clavier.
-              </p>
-              <dl>
-                <dt>? appliquer</dt>
-                <dd>Attributs <code>tabindex</code> positifs proscrits, gestion du focus.</dd>
-                <dt>? proscrire</dt>
-                <dd>Pi?ges de focus, dialogues non modaux sans gestion du focus.</dd>
-              </dl>
-            </article>
-            <article>
-              <h3>Formulaires accessibles</h3>
-              <p>
-                ?tiquetez chaque champ, fournissez instructions et exemples, g?rez les
-                erreurs de mani?re descriptive.
-              </p>
-              <dl>
-                <dt>? appliquer</dt>
-                <dd><code>label for</code> coh?rent, <code>aria-describedby</code> pour aides.</dd>
-                <dt>? proscrire</dt>
-                <dd>Placeholder seul comme ?tiquette, messages d'erreur vagues.</dd>
-              </dl>
-            </article>
-            <article>
+            <article class="module-card">
               <h3>Composants riches</h3>
               <p>
-                Utilisez ARIA uniquement pour combler un manque s?mantique, contr?lez
-                les annonces vocales et l'ordre de lecture.
+                Construisez accord&eacute;ons, modales, onglets, menus contextuels &amp; carrousels conformes.
               </p>
+              <ul>
+                <li>Choisir entre solutions natives et ARIA authoring practices.</li>
+                <li>Checklist clavier : Tab, Entr&eacute;e, Espace, fl&egrave;ches, &Eacute;chap.</li>
+              </ul>
+            </article>
+            <article class="module-card">
+              <h3>ARIA avanc&eacute;</h3>
+              <p>
+                D&eacute;veloppez une API accessible : r&ocirc;les structurels, &eacute;tats, attributs dynamiques,
+                <code>aria-live</code>, <code>aria-activedescendant</code>, <code>aria-expanded</code>.
+              </p>
+              <ul>
+                <li>Limiter ARIA aux cas n&eacute;cessaires, d&eacute;tecter les conflits s&eacute;mantiques.</li>
+                <li>Strat&eacute;gies d&rsquo;annonce pour composants asynchrones.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="themes" class="section">
+        <div class="container">
+          <header class="section__header">
+            <h2>Guide complet des 13 th&egrave;mes RGAA 4.1</h2>
+            <p>
+              R&eacute;sum&eacute;s du cours, points d&rsquo;attention et outils de test pour chaque crit&egrave;re.
+              D&eacute;ployez vos audits en vous appuyant sur ces fiches pratiques.
+            </p>
+          </header>
+          <div class="accordion">
+            <details open>
+              <summary>Th&egrave;me 1 &mdash; Images</summary>
+              <p>
+                Alternatives textuelles, gestion des images d&eacute;coratives,
+                <code>longdesc</code>, <code>figure</code>/<code>figcaption</code>, graphiques complexes.
+              </p>
+              <ul>
+                <li>Crit&egrave;res 1.1 &agrave; 1.10 : comment tester sur desktop, mobile et lecteurs d&rsquo;&eacute;cran.</li>
+                <li>Exercices d&rsquo;&eacute;criture d&rsquo;alt text du point de vue utilisateur.</li>
+              </ul>
+            </details>
+            <details>
+              <summary>Th&egrave;me 2 &mdash; Cadres (frames)</summary>
+              <p>Nommer les cadres, fournir des alternatives et contr&ocirc;ler le focus.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 3 &mdash; Couleurs</summary>
+              <p>Contrastes, communication hors couleur, th&egrave;mes sombre/clair.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 4 &mdash; Multim&eacute;dia</summary>
+              <p>Sous-titres, audiodescription, transcription, contenus synchronis&eacute;s.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 5 &mdash; Tables</summary>
+              <p>
+                En-t&ecirc;tes, port&eacute;es, association de cellules, utilisations complexes (tableaux de bord).
+              </p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 6 &mdash; Liens</summary>
+              <p>Intitul&eacute;s explicites, gestion des ancres, liens multiples vers un m&ecirc;me URL.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 7 &mdash; Scripts</summary>
+              <p>Compatibilit&eacute; clavier, ARIA, gestion du focus, annonces dynamiques.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 8 &mdash; &Eacute;l&eacute;ments obligatoires</summary>
+              <p>Pr&eacute;sence de titre, langue de la page, changement de langue inline.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 9 &mdash; Structure de l&rsquo;information</summary>
+              <p>Organisation logique, ordre du DOM, listes, citations, &eacute;quivalents.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 10 &mdash; Pr&eacute;sentation de l&rsquo;information</summary>
+              <p>Zoom, reflow, usage du CSS, responsivit&eacute;, contrastes suppl&eacute;mentaires.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 11 &mdash; Formulaires</summary>
+              <p>Labels, groupements, erreurs, suggestions, aides, auto-compl&eacute;tion.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 12 &mdash; Navigation</summary>
+              <p>Ordre de tabulation, liens d&rsquo;&eacute;vitement, navigation coh&eacute;rente.</p>
+            </details>
+            <details>
+              <summary>Th&egrave;me 13 &mdash; Consultation</summary>
+              <p>Compatibilit&eacute; avec les agents utilisateurs, scripts d&eacute;sactiv&eacute;s, fallbacks.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section id="patterns" class="section section--accent">
+        <div class="container">
+          <header class="section__header">
+            <h2>Pratiques essentielles &amp; matrices d&rsquo;usage</h2>
+            <p>
+              Pour chaque domaine, d&eacute;cidez quand appliquer une pratique, quand l&rsquo;&eacute;viter, et
+              comment la documenter dans vos audits.
+            </p>
+          </header>
+          <div class="pattern-grid">
+            <article class="pattern-card">
+              <h3>Alternatives textuelles</h3>
               <dl>
-                <dt>? appliquer</dt>
-                <dd>Attributs <code>aria-live</code>, <code>role</code> adapt?, gestion d'?tat.</dd>
-                <dt>? proscrire</dt>
-                <dd>Ajouter <code>role</code> inutile, surcharger le DOM avec ARIA.</dd>
+                <dt>&Agrave; utiliser</dt>
+                <dd>Supports essentiels, boutons ic&ocirc;ne, graphiques, infographies.</dd>
+                <dt>&Agrave; &eacute;viter</dt>
+                <dd>Descriptions vagues (&laquo; image &raquo;), redondance avec le texte voisin.</dd>
+                <dt>Bonnes pratiques</dt>
+                <dd>Contextualiser le r&ocirc;le, pr&eacute;ciser l&rsquo;action et la cible.</dd>
+              </dl>
+            </article>
+            <article class="pattern-card">
+              <h3>Contrastes &amp; th&eacute;matiques</h3>
+              <dl>
+                <dt>&Agrave; utiliser</dt>
+                <dd>Rapport 4.5:1 pour le texte normal, 3:1 pour gros titres et UI.</dd>
+                <dt>&Agrave; &eacute;viter</dt>
+                <dd>Communiquer une information uniquement par la couleur.</dd>
+                <dt>Bonnes pratiques</dt>
+                <dd>Double indicateur (ic&ocirc;ne + couleur), plan de th&egrave;mes sombre/clair.</dd>
+              </dl>
+            </article>
+            <article class="pattern-card">
+              <h3>Navigation clavier</h3>
+              <dl>
+                <dt>&Agrave; utiliser</dt>
+                <dd>Ordre du DOM logique, focus visible, &eacute;chappatoire des modales.</dd>
+                <dt>&Agrave; &eacute;viter</dt>
+                <dd><code>tabindex</code> positif, focus invisible, pi&egrave;ges clavier.</dd>
+                <dt>Bonnes pratiques</dt>
+                <dd>Tests NVDA/VoiceOver + clavier, r&eacute;capitulatif des raccourcis.</dd>
+              </dl>
+            </article>
+            <article class="pattern-card">
+              <h3>ARIA et &eacute;tats</h3>
+              <dl>
+                <dt>&Agrave; utiliser</dt>
+                <dd><code>aria-expanded</code>, <code>aria-pressed</code>, <code>role</code> appropri&eacute;s.</dd>
+                <dt>&Agrave; &eacute;viter</dt>
+                <dd>Ajouter des r&ocirc;les sur des &eacute;l&eacute;ments n&eacute;gatifs, surcharger le DOM.</dd>
+                <dt>Bonnes pratiques</dt>
+                <dd>Synchroniser visuel et accessible, nettoyer les attributs dynamiques.</dd>
+              </dl>
+            </article>
+            <article class="pattern-card">
+              <h3>Formulaires complexes</h3>
+              <dl>
+                <dt>&Agrave; utiliser</dt>
+                <dd>Groupes <code>fieldset</code>/<code>legend</code>, instructions associ&eacute;es.</dd>
+                <dt>&Agrave; &eacute;viter</dt>
+                <dd>Placeholder seul, erreurs non li&eacute;es, validations bloquantes.</dd>
+                <dt>Bonnes pratiques</dt>
+                <dd>Auto-compl&eacute;tion, feedback &agrave; la vol&eacute;e, regroupement logique.</dd>
+              </dl>
+            </article>
+            <article class="pattern-card">
+              <h3>Contenus dynamiques</h3>
+              <dl>
+                <dt>&Agrave; utiliser</dt>
+                <dd><code>aria-live</code> polite/assertive selon la criticit&eacute;, <code>role="status"</code>.</dd>
+                <dt>&Agrave; &eacute;viter</dt>
+                <dd>Multiplication des annonces, rafra&icirc;chissement non demand&eacute;.</dd>
+                <dt>Bonnes pratiques</dt>
+                <dd>Limiter la zone d&rsquo;annonce, fournir un historique accessible.</dd>
               </dl>
             </article>
           </div>
@@ -188,53 +308,59 @@
 
       <section id="atelier" class="section">
         <div class="container">
-          <h2>Guides pratiques et ateliers d'audit</h2>
+          <header class="section__header">
+            <h2>Ateliers d&rsquo;audit &amp; checklist op&eacute;rationnelle</h2>
+            <p>
+              Mettez en place une strat&eacute;gie d&rsquo;audit syst&eacute;matique, documentez vos preuves et
+              priorisez vos plans d&rsquo;action.
+            </p>
+          </header>
           <div class="atelier-grid">
             <article>
-              <h3>Checklist de conception</h3>
+              <h3>Avant le projet</h3>
               <ul>
-                <li>Identifier profils utilisateurs et aides techniques d?s le cadrage.</li>
-                <li>Prototyper avec contraste suffisant et textes explicites.</li>
-                <li>Pr?voir navigation clavier et raccourcis de contournement.</li>
+                <li>Cartographie des parcours utilisateurs &amp; aides techniques mobilis&eacute;es.</li>
+                <li>Charte accessibilit&eacute; et checklist de conception (&maquettes, composants, contenus).</li>
+                <li>Crit&egrave;res d&rsquo;acceptation accessibilit&eacute; dans chaque user story.</li>
               </ul>
             </article>
             <article>
-              <h3>Checklist de d?veloppement</h3>
+              <h3>Pendant le d&eacute;veloppement</h3>
               <ul>
-                <li>Utiliser les composants HTML natifs avant les scripts personnalis?s.</li>
-                <li>Tester chaque composant avec lecteur d'?cran et zoom 200 %.</li>
-                <li>Valider les focus visibles et l'ordre de tabulation.</li>
+                <li>Revues de code accessibilit&eacute;, d&eacute;monstrations clavier/lecteur d&rsquo;&eacute;cran.</li>
+                <li>Tests automatis&eacute;s (axe-core, lint, Jest a11y) int&eacute;gr&eacute;s &agrave; la CI.</li>
+                <li>Documentation technique partag&eacute;e (Storybook A11Y, design tokens).</li>
               </ul>
             </article>
             <article>
-              <h3>Checklist d'audit RGAA</h3>
+              <h3>Audit complet RGAA</h3>
               <ul>
-                <li>?chantillonner au moins 10 pages types avec variations.</li>
-                <li>?valuer par th?me RGAA en documentant chaque test.</li>
-                <li>Produire un rapport avec taux de conformit? et actions.</li>
+                <li>S&eacute;lection d&rsquo;un &eacute;chantillon repr&eacute;sentatif (pages, composants, documents).</li>
+                <li>Grille de scoring, captures, &eacute;vidence et r&eacute;f&eacute;rences.</li>
+                <li>Strat&eacute;gie de priorisation (bloquant, majeur, mineur) + plan d&rsquo;action.</li>
               </ul>
             </article>
-            <article>
-              <h3>Simulation d'audit rapide</h3>
+            <article class="audit-card">
+              <h3>Simulation d&rsquo;audit express</h3>
               <form id="audit-form">
-                <p>S?lectionnez les points non conformes d?tect?s :</p>
+                <p>S&eacute;lectionnez les non-conformit&eacute;s majeures que vous avez relev&eacute;es :</p>
                 <label>
                   <input type="checkbox" name="audit" value="contrast" />
-                  Contraste insuffisant sur boutons principaux
+                  Contraste insuffisant sur CTA principaux
                 </label>
                 <label>
                   <input type="checkbox" name="audit" value="label" />
-                  Champs de formulaire sans ?tiquette visible
+                  Champs de formulaire sans &eacute;tiquettes reli&eacute;es
                 </label>
                 <label>
                   <input type="checkbox" name="audit" value="focus" />
-                  Focus clavier invisible sur le menu principal
+                  Focus clavier pi&eacute;g&eacute; ou invisible
                 </label>
                 <label>
-                  <input type="checkbox" name="audit" value="aria" />
-                  Utilisation abusive de r?les ARIA d?coratifs
+                  <input type="checkbox" name="audit" value="carrousel" />
+                  Carrousel automatique sans contr&ocirc;le utilisateur
                 </label>
-                <button type="submit" class="primary">Valider l'audit</button>
+                <button type="submit" class="btn btn--primary">Valider la d&eacute;tection</button>
               </form>
               <div class="feedback" id="audit-feedback" aria-live="polite"></div>
             </article>
@@ -242,67 +368,85 @@
         </div>
       </section>
 
-      <section id="exercices" class="section alt">
+      <section id="laboratoire" class="section section--deep">
         <div class="container">
-          <h2>Exercices pratiques de correction de code</h2>
-          <p>
-            Corrigez chaque extrait pour le rendre conforme et comparez votre
-            solution avec le corrig?. Les validations automatiques v?rifient les
-            points cl?s attendus.
-          </p>
+          <header class="section__header section__header--on-dark">
+            <h2>Laboratoire de correction &mdash; &Eacute;ditez, validez, ex&eacute;cutez</h2>
+            <p>
+              Corrigez des cas r&eacute;els, v&eacute;rifiez automatiquement la conformit&eacute;, puis
+              pr&eacute;visualisez le rendu accessible gr&acirc;ce &agrave; l&rsquo;ex&eacute;cution live du code.
+            </p>
+          </header>
           <div id="exercises-container" class="exercises"></div>
         </div>
       </section>
 
       <section id="quiz" class="section">
         <div class="container">
-          <h2>Quiz de validation et flashcards</h2>
+          <header class="section__header">
+            <h2>Quiz de validation, flashcards &amp; fiches m&eacute;thodes</h2>
+            <p>
+              Contr&ocirc;lez vos acquis, r&eacute;visez les usages &agrave; chaud et conservez les points
+              m&eacute;moires essentiels.
+            </p>
+          </header>
           <div id="quiz-container" class="quiz"></div>
           <div class="flashcards" aria-live="polite">
-            <h3>Flashcards "Quand utiliser"</h3>
+            <h3>Flashcards &laquo;&nbsp;Quand utiliser ?&nbsp;&raquo;</h3>
             <div id="flashcards-list"></div>
           </div>
         </div>
       </section>
 
-      <section id="entretien" class="section alt">
+      <section id="entretien" class="section section--accent">
         <div class="container">
-          <h2>Pr?paration ? l'entretien technique RGAA</h2>
-          <p>
-            Comprenez ce que les recruteurs et auditeurs attendent et entra?nez-vous
-            ? formuler des r?ponses structur?es.
-          </p>
+          <header class="section__header">
+            <h2>Coaching entretien technique &amp; sertissage RH</h2>
+            <p>
+              Pr&eacute;parez vos r&eacute;ponses aux questions de recruteurs, consultants et clients.
+            </p>
+          </header>
           <div class="qa-grid" id="interview-qa"></div>
         </div>
       </section>
 
       <section id="ressources" class="section">
         <div class="container">
-          <h2>Ressources et outils de veille</h2>
+          <header class="section__header">
+            <h2>Veille, standards &amp; bo&icirc;te &agrave; outils</h2>
+            <p>
+              Gardez vos connaissances &agrave; jour et acc&eacute;dez rapidement aux documents officiels.
+            </p>
+          </header>
           <ul class="resource-list">
             <li>
-              <a href="https://accessibilite.numerique.gouv.fr" target="_blank" rel="noopener noreferrer">
-                R?f?rentiel officiel RGAA 4.1 et guides de tests
+              <a href="https://accessibilite.numerique.gouv.fr/" target="_blank" rel="noopener noreferrer">
+                RGAA 4.1 &mdash; R&eacute;f&eacute;rentiel officiel &amp; guide d&rsquo;impl&eacute;mentation
               </a>
             </li>
             <li>
               <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener noreferrer">
-                WCAG 2.1 - Web Content Accessibility Guidelines
+                WCAG 2.1 &mdash; Web Content Accessibility Guidelines
               </a>
             </li>
             <li>
-              <a href="https://developer.mozilla.org/fr/docs/Web/Accessibility" target="_blank" rel="noopener noreferrer">
-                MDN Web Docs - Accessibilit?
+              <a href="https://www.w3.org/WAI/ARIA/apg/" target="_blank" rel="noopener noreferrer">
+                WAI-ARIA Authoring Practices &mdash; mod&egrave;les interactifs
               </a>
             </li>
             <li>
-              <a href="https://a11yproject.com/" target="_blank" rel="noopener noreferrer">
-                The A11Y Project - Ressources pratiques
+              <a href="https://a11yproject.com/checklist/" target="_blank" rel="noopener noreferrer">
+                A11Y Project &mdash; Checklist et ressources maintenues
               </a>
             </li>
             <li>
-              <a href="https://contrast-finder.tanaguru.com" target="_blank" rel="noopener noreferrer">
-                Tanaguru Contrast Finder - Ajustement de couleurs
+              <a href="https://contrast-ratio.com/" target="_blank" rel="noopener noreferrer">
+                Contrast Ratio &mdash; Calculateur instantan&eacute; de contrastes
+              </a>
+            </li>
+            <li>
+              <a href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener noreferrer">
+                WebAIM &mdash; Outils et articles de r&eacute;f&eacute;rence
               </a>
             </li>
           </ul>
@@ -311,10 +455,13 @@
     </main>
 
     <footer class="footer" role="contentinfo">
-      <div class="container">
+      <div class="container footer__content">
         <p>
-          Plateforme p?dagogique RGAA - Formation continue, exercices pratiques et
-          pr?paration ? l'entretien. Derni?re mise ? jour : <span id="last-update"></span>.
+          Acad&eacute;mie RGAA &mdash; Votre plateforme de r&eacute;f&eacute;rence pour l&rsquo;accessibilit&eacute; num&eacute;rique.
+        </p>
+        <p>
+          Derni&egrave;re mise &agrave; jour : <span id="last-update"></span> &bull; Contact :
+          <a href="mailto:accessibilite@exemple.fr">accessibilite@exemple.fr</a>
         </p>
       </div>
     </footer>
